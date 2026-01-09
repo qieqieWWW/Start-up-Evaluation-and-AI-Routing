@@ -1,15 +1,28 @@
-﻿import pandas as pd
+import pandas as pd
 import os
+import shutil
 from io import StringIO
 import sys
 
-# 数据集路径
-data_path = 'D:\文档\研究\datasets\Kickstarter_2025-12-18T03_20_24_296Z'
-output_path = 'D:\文档\研究\Kickstarter_Clean\kickstarter_cleaned.csv'
-log_path = 'D:\文档\研究\Kickstarter_Clean\cleaning_log.txt'
+# 项目结构整理
+dataset_folder_name = 'Kickstarter_2025-12-18T03_20_24_296Z'
+datasets_dir = 'datasets'
+output_dir = 'Kickstarter_Clean'
+
+# 创建datasets目录
+os.makedirs(datasets_dir, exist_ok=True)
+
+# 检查数据集文件夹是否在根目录，如果是则移动到datasets目录
+if os.path.exists(dataset_folder_name) and not os.path.exists(os.path.join(datasets_dir, dataset_folder_name)):
+    shutil.move(dataset_folder_name, os.path.join(datasets_dir, dataset_folder_name))
+
+# 数据集路径（相对路径）
+data_path = os.path.join(datasets_dir, dataset_folder_name)
+output_path = os.path.join(output_dir, 'kickstarter_cleaned.csv')
+log_path = os.path.join(output_dir, 'cleaning_log.txt')
 
 # 创建输出目录
-os.makedirs(os.path.dirname(output_path), exist_ok=True)
+os.makedirs(output_dir, exist_ok=True)
 
 # 日志记录类
 class LogCapture:
