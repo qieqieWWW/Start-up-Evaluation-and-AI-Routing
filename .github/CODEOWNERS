@@ -1,0 +1,7 @@
+﻿.github/ @qieqieWWW
+config/ @qieqieWWW
+scripts/ @qieqieWWW
+README.md @qieqieWWW
+
+#排除规则
+docs/
