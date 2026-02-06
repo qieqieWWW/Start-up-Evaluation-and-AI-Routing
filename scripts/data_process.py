@@ -4,22 +4,31 @@ import shutil
 from io import StringIO
 import sys
 
+# =================== 动态路径配置 ===================
+# 获取脚本目录和项目根目录
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
+
 # 项目结构整理
 dataset_folder_name = "Kickstarter_2025-12-18T03_20_24_296Z"
-datasets_dir = "datasets"
-output_dir = "Kickstarter_Clean"
+datasets_dir = os.path.join(PROJECT_ROOT, "datasets")
+output_dir = os.path.join(PROJECT_ROOT, "Kickstarter_Clean")
 
 # 创建datasets目录
 os.makedirs(datasets_dir, exist_ok=True)
 
 # 检查数据集文件夹是否在根目录，如果是则移动到datasets目录
 dataset_path = os.path.join(datasets_dir, dataset_folder_name)
+dataset_in_root = os.path.join(PROJECT_ROOT, dataset_folder_name)
 dataset_in_datasets = os.path.exists(dataset_path)
-if os.path.exists(dataset_folder_name) and not dataset_in_datasets:
-    shutil.move(dataset_folder_name, dataset_path)
 
-# 数据集路径（相对路径）
-data_path = os.path.join(datasets_dir, dataset_folder_name)
+if os.path.exists(dataset_in_root) and not dataset_in_datasets:
+    print(f"发现数据集在项目根目录，移动到datasets目录...")
+    shutil.move(dataset_in_root, dataset_path)
+    print(f"✓ 数据集已移动到: {dataset_path}")
+
+# 数据集路径（绝对路径）
+data_path = dataset_path
 output_path = os.path.join(output_dir, "kickstarter_cleaned.csv")
 log_path = os.path.join(output_dir, "cleaning_log.txt")
 
