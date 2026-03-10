@@ -1,3 +1,14 @@
 ﻿datasets/
 Kickstarter_Clean/
 text_files/
+logs/
+
+# local secrets
+.env
+.env.*
+!.env.example
+
+# local cache/artifacts
+__pycache__/
+*.pyc
+.DS_Store
