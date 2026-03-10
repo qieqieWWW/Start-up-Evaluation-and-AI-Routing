@@ -18,6 +18,7 @@
 import os
 import sys
 import subprocess
+import importlib.util
 from pathlib import Path
 from datetime import datetime
 
@@ -284,6 +285,60 @@ def run_m3_simulation():
         return False
 
 # ==========================================
+# 模块4：M7智能体池与路由
+# ==========================================
+
+def run_m7_processing():
+    """
+    执行M7智能体池路由模块
+    基于M8输出进行专家路由与可视化
+    """
+    log_step(4, "执行M7智能体池路由 (m7/m7_demo.py)")
+
+    try:
+        script_path = SCRIPTS_DIR / "m7" / "m7_demo.py"
+        if not script_path.exists():
+            log_error(f"找不到脚本: {script_path}")
+            return False
+
+        # 依赖检查：M7可视化需要matplotlib（无依赖时不阻断核心路由）
+        if importlib.util.find_spec("matplotlib") is None:
+            log_info("未检测到matplotlib，M7将跳过可视化，仅执行核心路由")
+            log_info("如需生成图表，可安装: pip install matplotlib")
+
+        log_info(f"执行脚本: {script_path}")
+
+        original_cwd = os.getcwd()
+
+        try:
+            os.chdir(SCRIPTS_DIR)
+
+            result = subprocess.run(
+                [sys.executable, "m7/m7_demo.py"],
+                capture_output=False,
+                timeout=600  # 10分钟超时
+            )
+
+            if result.returncode != 0:
+                log_error(f"M7处理失败，返回码: {result.returncode}")
+                return False
+
+            log_success("M7智能体池路由完成")
+            return True
+
+        finally:
+            os.chdir(original_cwd)
+
+    except subprocess.TimeoutExpired:
+        log_error("M7处理超时（>10分钟）")
+        return False
+    except Exception as e:
+        log_error(f"M7处理异常: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+# ==========================================
 # 主工作流程
 # ==========================================
 
@@ -321,6 +376,7 @@ def main():
         ("数据清洗（M2）", run_data_processing),
         ("M4特征工程与训练", run_m4_processing),
         ("M3仿真", run_m3_simulation),
+        ("M7智能体池路由", run_m7_processing),
     ]
     
     results = {}
@@ -353,6 +409,9 @@ def main():
     cleaned_data = OUTPUT_DIR / "kickstarter_cleaned.csv"
     latest_summary = find_latest_file(OUTPUT_DIR, "full_prediction_summary_", ".csv")
     latest_m3 = find_latest_file(OUTPUT_DIR, "m3_simulation_results_", ".csv")
+    m7_output_dir = OUTPUT_DIR / "m7_visualization"
+    latest_m7_expert_chart = find_latest_file(m7_output_dir, "m7_expert_selection_", ".png")
+    latest_m7_flow_chart = find_latest_file(m7_output_dir, "m7_route_flow_", ".png")
 
     with open(report_path, "w", encoding="utf-8") as report:
         report.write("运行报告\n")
@@ -367,6 +426,8 @@ def main():
         report.write(f"- 清洗数据: {cleaned_data if cleaned_data.exists() else '未生成'}\n")
         report.write(f"- M4汇总: {latest_summary if latest_summary else '未生成'}\n")
         report.write(f"- M3结果: {latest_m3 if latest_m3 else '未生成'}\n")
+        report.write(f"- M7专家选择图: {latest_m7_expert_chart if latest_m7_expert_chart else '未生成'}\n")
+        report.write(f"- M7路由流程图: {latest_m7_flow_chart if latest_m7_flow_chart else '未生成'}\n")
 
     log_info(f"运行日志已保存: {log_file_path}")
     log_info(f"运行报告已保存: {report_path}")
