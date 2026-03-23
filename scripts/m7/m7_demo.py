@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from m7_router import route_experts
-from m7_inference_runner import run_expert_llm_inference
+from m7_inference_runner import run_expert_llm_inference, run_expert_llm_inference_with_blender
 
 SCRIPT_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = SCRIPT_DIR.parent
@@ -60,8 +60,34 @@ def run_m8_to_m7_demo() -> None:
 	}
 
 	risk_level, reasons, intermediate = judge_project_risk_m8(project_data, verbose=False)
-	route_result = route_experts(risk_level, intermediate, project_data)
+	user_input = "我们当前现金流只够 2 个月，希望优先避免断裂风险。"
+	user_id = "u_001"
+	conversation_turns = [
+		{"role": "user", "content": "我们做跨境SaaS。"},
+		{"role": "assistant", "content": "你更担心增长还是风险控制？"},
+		{"role": "user", "content": "担心知识产权和现金流。"},
+	]
+	route_result = route_experts(
+		risk_level,
+		intermediate,
+		project_data,
+		user_id=user_id,
+		user_input=user_input,
+		conversation_turns=conversation_turns,
+		previous_state="Waiting_For_Financials",
+	)
+	uploaded_snippets = [
+		{
+			"file_name": "founder_note.txt",
+			"snippet": "团队目前 6 人，研发 4 人，市场 1 人，运营 1 人；下月有服务器续费。",
+		},
+		{
+			"file_name": "budget.csv",
+			"snippet": "month,cash_in,cash_out\\n2026-04,4000,9500\\n2026-05,3500,9200",
+		},
+	]
 	llm_outputs = []
+	blender_result = {}
 	if os.getenv("DEEPSEEK_API_KEY"):
 		try:
 			llm_outputs = run_expert_llm_inference(
@@ -70,8 +96,24 @@ def run_m8_to_m7_demo() -> None:
 				intermediate=intermediate,
 				project_data=project_data,
 				route_result=route_result,
+				user_input=user_input,
+				user_id=user_id,
+				uploaded_snippets=uploaded_snippets,
 				top_k=1,
 				model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
+			)
+			blender_result = run_expert_llm_inference_with_blender(
+				risk_level=risk_level,
+				reasons=reasons,
+				intermediate=intermediate,
+				project_data=project_data,
+				route_result=route_result,
+				user_input=user_input,
+				user_id=user_id,
+				uploaded_snippets=uploaded_snippets,
+				top_k=2,
+				model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
+				use_llm_fuser=True,
 			)
 		except Exception as exc:
 			print(f"⚠️ DeepSeek 调用失败，已跳过 LLM 推理: {exc}")
@@ -99,6 +141,10 @@ def run_m8_to_m7_demo() -> None:
 	print(f"  归一化风险: {route_result['normalized_risk_level']}")
 	print(f"  路由理由: {route_result['route_reason']}")
 	print(f"  置信度: {route_result['confidence']}")
+	print(f"  联合打分: {route_result.get('routing_scores', {})}")
+	print(f"  意图识别: {route_result.get('intent_result', {})}")
+	state_machine = route_result.get("trajectory_context", {}).get("short_term_memory", {}).get("state_machine", {})
+	print(f"  轨迹状态机: {state_machine}")
 	print("  选中专家:")
 	for expert in route_result["selected_experts"]:
 		print(f"    - {expert['role']} ({expert['name']})")
@@ -132,6 +178,14 @@ def run_m8_to_m7_demo() -> None:
 			print("-" * 70)
 	else:
 		print("  未生成（可设置 DEEPSEEK_API_KEY 后重试）")
+
+	print("\nM7 Blender 融合结果:")
+	if blender_result:
+		print("  排名后候选数量:", len(blender_result.get("ranked_candidates", [])))
+		print("  融合结果:")
+		print(_pretty_json(blender_result.get("fused_result", {})))
+	else:
+		print("  未生成（可设置 DEEPSEEK_API_KEY 后重试，或运行 m7_blender_demo.py）")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "risk_model_cashflow_safety_margin",
+    "title": "现金流安全边际基准",
+    "category": "risk_model",
+    "industry": "通用",
+    "keywords": ["现金流", "净流出", "runway", "安全边际"],
+    "tags": ["风险模型", "财务"],
+    "risk_model_definition": "建议至少保持 3-6 个月运营现金储备；若连续 2 个月净流出扩大，需立即降本并重排投放。",
+    "success_case": "某SaaS团队通过冻结低ROI投放+延后招聘，将runway从2个月延长至5个月。",
+    "guideline": "当现金流压力上升时，优先守住生存线，再做增长实验。"
+  },
+  {
+    "id": "industry_b2b_saas_retention",
+    "title": "B2B SaaS 留存优先策略",
+    "category": "industry_standard",
+    "industry": "B2B SaaS",
+    "keywords": ["留存", "续费", "SaaS", "流失"],
+    "tags": ["行业标准", "增长"],
+    "risk_model_definition": "净新增增长应建立在健康留存上，建议先控制月流失率再扩张获客。",
+    "success_case": "某MarTech团队先优化Onboarding和客户成功流程，90天续费率提升11%。",
+    "guideline": "优先修复留存漏斗，再放大获客预算。"
+  },
+  {
+    "id": "case_crossborder_policy_shock",
+    "title": "跨境业务政策波动应对",
+    "category": "success_case",
+    "industry": "跨境电商",
+    "keywords": ["跨境", "政策", "平台", "渠道"],
+    "tags": ["案例", "风控"],
+    "risk_model_definition": "对单一平台依赖会显著提高外部冲击风险，需要分散渠道并准备应急预案。",
+    "success_case": "某团队建立双平台和私域承接机制，在平台规则调整后仍维持80%成交。",
+    "guideline": "建立渠道冗余，避免单点依赖。"
+  },
+  {
+    "id": "ops_milestone_execution",
+    "title": "里程碑化执行管理",
+    "category": "industry_standard",
+    "industry": "通用",
+    "keywords": ["里程碑", "执行", "排期", "资源"],
+    "tags": ["运营", "管理"],
+    "risk_model_definition": "建议以周为单位定义里程碑与验收标准，连续两周未达标触发纠偏。",
+    "success_case": "某初创项目通过周度里程碑复盘将关键任务延期率从42%降到18%。",
+    "guideline": "把目标拆成可验证里程碑，按周校准。"
+  }
+]

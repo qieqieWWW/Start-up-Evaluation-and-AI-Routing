@@ -1,0 +1,42 @@
+[
+  {
+    "intent_id": "risk_assessment",
+    "primary_intent": "risk_assessment",
+    "sub_intent": "general_risk",
+    "description": "评估项目整体风险、识别潜在失败点",
+    "keywords": ["风险", "隐患", "失败", "不确定", "致命"],
+    "default_required_experts": ["risk_guardian", "finance_advisor"]
+  },
+  {
+    "intent_id": "financial_health",
+    "primary_intent": "financial_analysis",
+    "sub_intent": "cashflow_evaluation",
+    "description": "分析财务健康度、现金流和预算可行性",
+    "keywords": ["现金流", "预算", "财报", "收支", "亏损", "融资"],
+    "default_required_experts": ["finance_advisor", "risk_guardian"]
+  },
+  {
+    "intent_id": "legal_compliance",
+    "primary_intent": "legal_compliance",
+    "sub_intent": "ip_and_regulation",
+    "description": "知识产权、合规、法律风险相关问题",
+    "keywords": ["知识产权", "专利", "侵权", "合规", "法律", "监管"],
+    "default_required_experts": ["risk_guardian", "ops_executor"]
+  },
+  {
+    "intent_id": "market_validation",
+    "primary_intent": "market_validation",
+    "sub_intent": "growth_and_channel",
+    "description": "市场验证、增长策略、渠道优化",
+    "keywords": ["市场", "增长", "转化", "渠道", "留存", "获客"],
+    "default_required_experts": ["growth_strategist", "ops_executor"]
+  },
+  {
+    "intent_id": "team_evaluation",
+    "primary_intent": "team_evaluation",
+    "sub_intent": "execution_capability",
+    "description": "团队背景、执行力与组织结构评估",
+    "keywords": ["团队", "创始人", "背景", "执行", "组织", "招聘"],
+    "default_required_experts": ["ops_executor", "risk_guardian"]
+  }
+]

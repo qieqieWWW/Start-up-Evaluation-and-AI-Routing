@@ -1,5 +1,12 @@
 import json
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
+
+from m7_context_analyzer import (
+    render_layer1_for_prompt,
+    render_layer2_for_prompt,
+    render_layer3_for_prompt,
+    render_layer4_for_prompt,
+)
 
 
 def build_system_prompt(expert: Dict[str, str]) -> str:
@@ -26,6 +33,10 @@ def build_user_prompt(
     intermediate: Dict[str, float],
     project_data: Dict[str, object],
     route_reason: str,
+    layer1_context: Optional[Dict[str, Any]] = None,
+    layer2_context: Optional[Dict[str, Any]] = None,
+    layer3_context: Optional[Dict[str, Any]] = None,
+    layer4_context: Optional[Dict[str, Any]] = None,
 ) -> str:
     schema_example = {
         "expert": "string",
@@ -57,7 +68,7 @@ def build_user_prompt(
         "project_data": project_data,
     }
 
-    return (
+    prompt = (
         "任务：你将作为被路由到的专家，基于输入项目输出结构化决策建议。\n"
         "\n输出要求（必须同时满足）：\n"
         "1) 仅输出 1 个 JSON 对象，不得出现其他文本；\n"
@@ -72,3 +83,17 @@ def build_user_prompt(
         f"JSON schema 示例：{json.dumps(schema_example, ensure_ascii=False)}\n\n"
         f"输入数据：{json.dumps(payload, ensure_ascii=False)}"
     )
+
+    if layer1_context:
+        prompt += render_layer1_for_prompt(layer1_context)
+
+    if layer2_context:
+        prompt += render_layer2_for_prompt(layer2_context)
+
+    if layer3_context:
+        prompt += render_layer3_for_prompt(layer3_context)
+
+    if layer4_context:
+        prompt += render_layer4_for_prompt(layer4_context)
+
+    return prompt

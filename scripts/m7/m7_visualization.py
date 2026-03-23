@@ -49,7 +49,7 @@ def _plot_route_flow(route_result: Dict[str, object], save_path: Path) -> None:
     normalized_risk = str(route_result["normalized_risk_level"])
     selected_experts: List[Dict[str, str]] = route_result["selected_experts"]  # type: ignore[assignment]
     expert_roles = " + ".join(EXPERT_DISPLAY_NAME.get(expert["name"], expert["name"]) for expert in selected_experts)
-    route_reason = ROUTE_REASON_EN.get(normalized_risk, str(route_result["route_reason"]))
+    route_reason = route_result.get("route_reason", "No route reason available.")
 
     fig, ax = plt.subplots(figsize=(11, 3.8))
     ax.set_xlim(0, 11)

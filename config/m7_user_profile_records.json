@@ -1,0 +1,71 @@
+[
+  {
+    "user_id": "u_001",
+    "industry_tags": [
+      "SaaS",
+      "跨境电商",
+      "B2B"
+    ],
+    "preferences": [
+      "高风险高回报",
+      "重增长",
+      "快速试错"
+    ],
+    "risk_appetite": "high",
+    "assessment_summary": "用户过去更偏向激进增长策略，愿意接受短期现金流波动以换取更高增长。",
+    "preference_note": "对高 ROI 渠道优先，容忍早期不稳定。",
+    "common_needs": "提升留存与获客效率",
+    "industry_comment": "跨境卖家受平台政策波动影响较大。"
+  },
+  {
+    "user_id": "u_001",
+    "industry_tags": [
+      "SaaS",
+      "MarTech"
+    ],
+    "preferences": [
+      "数据驱动",
+      "自动化运营"
+    ],
+    "risk_appetite": "medium_high",
+    "assessment_summary": "上次评估建议先做自动化销售漏斗，再扩张投放。",
+    "preference_note": "偏好可量化的增长试验。",
+    "common_needs": "缩短回款周期",
+    "industry_comment": "对 CAC 与回本周期敏感。"
+  },
+  {
+    "user_id": "u_002",
+    "industry_tags": [
+      "硬件",
+      "IoT"
+    ],
+    "preferences": [
+      "稳健经营",
+      "成本控制"
+    ],
+    "risk_appetite": "low",
+    "assessment_summary": "该用户倾向降低库存风险，优先确保现金流安全。",
+    "preference_note": "不偏好激进扩张。",
+    "common_needs": "供应链稳定",
+    "industry_comment": "硬件项目交付风险高。"
+  },
+  {
+    "user_id": "u_autolog_demo",
+    "industry_tags": [
+      "SaaS"
+    ],
+    "preferences": [
+      "auto_logged",
+      "demo"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "自动写入演示：用户咨询增长与现金流平衡。",
+    "preference_note": "demo record",
+    "common_needs": "增长与风控平衡",
+    "industry_comment": "",
+    "meta": {
+      "source": "m7_profile_autolog_demo"
+    },
+    "recorded_at": "2026-03-21T13:09:13.591563+00:00"
+  }
+]
