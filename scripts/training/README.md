@@ -84,7 +84,7 @@ set ROUTER_LORA_PATH=scripts/training/output/adapter/adapter_model
 - `parallelism`
 - `confidence_score`
 
-## 显存占用预估（RTX 4070 Laptop 8GB）
+## 显存占用预估
 
 | 阶段 | 预估显存 |
 |---|---|
@@ -93,4 +93,3 @@ set ROUTER_LORA_PATH=scripts/training/output/adapter/adapter_model
 | 验证 | ~5.0-6.2 GB |
 | 单样本推理 | ~4.6-5.8 GB |
 
-请将峰值控制在 `7.8 GB` 以下。
