@@ -230,3 +230,79 @@ cp .env.example .env
 ```
 
 仓库已在 `.gitignore` 忽略 `.env`，正常 `git add .` 不会提交本地密钥。
+
+## 启用小模型路由
+
+1. 复制配置：`cp .env.example .env`，然后将 `USE_REAL_SMALL_MODEL` 改为 `true`
+2. 验证集成：`python scripts/verify_small_model.py`
+3. 端到端测试：`python test_integration.py --input "跨境医疗项目..."`
+
+## UI 启动与使用（Mac / Windows）
+
+测试界面脚本位置：`scripts/app_test_ui.py`
+
+界面包含三个模块：
+- 聊天窗口（用户与评估系统）
+- 控制台日志（原始输出与步骤日志）
+- 结构化评级面板（tier、置信度、专家建议等）
+
+### 1）环境准备
+
+- 需要安装 `streamlit`
+- 建议使用你当前项目环境（例如 Airouting）
+
+Mac（conda）示例：
+
+```bash
+conda activate Airouting
+python -c "import streamlit; print(streamlit.__version__)"
+```
+
+Windows（conda）示例：
+
+```bash
+conda activate Airouting
+python -c "import streamlit; print(streamlit.__version__)"
+```
+
+如果未安装：
+
+```bash
+conda install -n Airouting -c conda-forge -y streamlit
+```
+
+### 2）启动命令
+
+Mac（项目根目录执行）：
+
+```bash
+streamlit run scripts/app_test_ui.py --server.headless true --server.port 8501
+```
+
+Windows（项目根目录执行）：
+
+```bash
+streamlit run scripts/app_test_ui.py --server.headless true --server.port 8501
+```
+
+启动后默认访问：
+- `http://localhost:8501`
+
+### 3）怎么用
+
+1. 打开页面后，在左侧聊天框输入项目描述。
+2. 右侧会同步展示结构化评级与日志。
+3. 侧边栏可切换推理模式：`规则引擎` 或 `小模型`。
+4. 切换模式后点击“应用模式并重建分类器”。
+
+### 4）常见问题
+
+- 页面显示规则路径、没有小模型：
+	- 在侧边栏切到 `小模型`，并点击“应用模式并重建分类器”。
+	- 若小模型加载失败，会自动回退规则引擎。
+
+- 端口占用（8501）：
+	- 可改端口，例如 `--server.port 8502`。
+
+- 命令找不到 streamlit：
+	- 说明当前终端不在目标环境，请先 `conda activate Airouting`。

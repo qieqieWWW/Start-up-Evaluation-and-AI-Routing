@@ -2,7 +2,8 @@
 Kickstarter_Clean/
 text_files/
 logs/
-
+scripts/training/output/
+models/
 # local secrets
 .env
 .env.*
