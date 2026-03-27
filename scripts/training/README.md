@@ -1,6 +1,4 @@
-# Qwen3 1.7B LoRA 训练流水线（8GB 显存安全）
-
-本目录提供一套面向 RTX 4070 Laptop 8GB 的低显存微调完整流程。
+# Qwen3 1.7B LoRA 训练流水线
 
 ## 目录说明
 
@@ -86,7 +84,7 @@ set ROUTER_LORA_PATH=scripts/training/output/adapter/adapter_model
 - `parallelism`
 - `confidence_score`
 
-## 显存占用预估（RTX 4070 Laptop 8GB）
+## 显存占用预估
 
 | 阶段 | 预估显存 |
 |---|---|
@@ -95,4 +93,3 @@ set ROUTER_LORA_PATH=scripts/training/output/adapter/adapter_model
 | 验证 | ~5.0-6.2 GB |
 | 单样本推理 | ~4.6-5.8 GB |
 
-请将峰值控制在 `7.8 GB` 以下。
