@@ -8,6 +8,7 @@ from typing import Any, Dict, List
 import streamlit as st
 
 from classifier import ComplexityClassifier
+from model_asset_manager import auto_place_assets_from_project_root, inspect_small_model_assets
 
 
 st.set_page_config(page_title="AI Routing Test UI", page_icon="🧭", layout="wide")
@@ -81,6 +82,17 @@ def main() -> None:
     st.title("AI 路由测试界面")
     st.caption("聊天 + 日志 + 结构化评级（最小可用版本）")
 
+    if "asset_status" not in st.session_state:
+        st.session_state.asset_status = None
+    if "asset_actions" not in st.session_state:
+        st.session_state.asset_actions = []
+    if "asset_warnings" not in st.session_state:
+        st.session_state.asset_warnings = []
+
+    # Real-time status based on classifier default paths (or env-overridden paths).
+    current_asset_status = inspect_small_model_assets()
+    st.session_state.asset_status = current_asset_status
+
     with st.sidebar:
         st.subheader("推理设置")
         mode = st.radio(
@@ -90,11 +102,71 @@ def main() -> None:
             help="小模型模式会尝试加载 Qwen + LoRA；失败时会自动回退规则路径。",
         )
         use_real_model = mode == "小模型"
+
+        if use_real_model:
+            if current_asset_status.get("ready"):
+                st.success("已检测到小模型文件，可启用小模型模式。")
+            else:
+                st.warning("当前指定目录下没有可用小模型文件，已准备回退到规则引擎。")
+                st.caption("默认基座目录")
+                st.code(str(current_asset_status.get("base_path", "")), language="text")
+                st.caption("默认适配器目录")
+                st.code(str(current_asset_status.get("adapter_path", "")), language="text")
+
+                if st.button("归位（从项目根目录）", use_container_width=True):
+                    result = auto_place_assets_from_project_root()
+                    st.session_state.asset_status = result.get("status")
+                    st.session_state.asset_actions = result.get("actions", [])
+                    st.session_state.asset_warnings = result.get("warnings", [])
+                    get_classifier.clear()
+                    st.rerun()
+
+        effective_use_real_model = use_real_model and bool(current_asset_status.get("ready"))
+
         if st.button("应用模式并重建分类器", use_container_width=True):
             get_classifier.clear()
             st.session_state.last_result = None
             st.session_state.last_logs = []
             st.rerun()
+
+        st.divider()
+        st.subheader("小模型资产自检")
+        st.caption("用于团队成员在本地下载模型后快速校验/归位。")
+
+        if st.button("检测小模型模式可加载性", use_container_width=True):
+            st.session_state.asset_status = inspect_small_model_assets()
+
+        if st.button("自动归位根目录模型文件夹", use_container_width=True):
+            result = auto_place_assets_from_project_root()
+            st.session_state.asset_status = result.get("status")
+            st.session_state.asset_actions = result.get("actions", [])
+            st.session_state.asset_warnings = result.get("warnings", [])
+            get_classifier.clear()
+
+        status = st.session_state.get("asset_status")
+        if status:
+            if status.get("ready"):
+                st.success("小模型模式文件检查通过。")
+            else:
+                st.error("当前文件不满足小模型模式加载要求。")
+
+            st.write("默认基座路径:")
+            st.code(str(status.get("base_path", "")), language="text")
+            st.write("默认适配器路径:")
+            st.code(str(status.get("adapter_path", "")), language="text")
+
+            missing = status.get("missing", [])
+            if missing:
+                st.warning(
+                    "\n".join(missing)
+                    + "\n\n请先将下载后的基座模型文件夹与适配器文件夹放到项目根目录，"
+                    "再点击“自动归位根目录模型文件夹”。"
+                )
+
+        for item in st.session_state.get("asset_actions", []):
+            st.info(item)
+        for item in st.session_state.get("asset_warnings", []):
+            st.warning(item)
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -103,8 +175,10 @@ def main() -> None:
     if "last_logs" not in st.session_state:
         st.session_state.last_logs = []
 
-    clf = get_classifier(use_real_model)
+    clf = get_classifier(effective_use_real_model)
     runtime_mode = "小模型" if clf.use_real_model else "规则引擎"
+    if use_real_model and not current_asset_status.get("ready"):
+        st.info("你选择了小模型模式，但当前目录缺少模型文件，系统已自动回退规则引擎。")
     st.info(f"当前运行模式: {runtime_mode} (USE_REAL_SMALL_MODEL={str(clf.use_real_model).lower()})")
 
     left, right = st.columns([1.2, 1.0])
