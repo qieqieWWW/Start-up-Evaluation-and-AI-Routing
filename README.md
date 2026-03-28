@@ -237,6 +237,29 @@ cp .env.example .env
 2. 验证集成：`python scripts/verify_small_model.py`
 3. 端到端测试：`python test_integration.py --input "跨境医疗项目..."`
 
+### 小模型文件放置说明（团队协作必读）
+
+由于 GitHub 文件大小限制，仓库不包含完整基座模型与 LoRA 适配器。团队成员需从共享网盘单独下载后放到本地。
+
+默认加载路径（`classifier` 约定）如下：
+- 基座模型：`models/Qwen3-1.7B`
+- LoRA 适配器：`scripts/training/output/adapter`
+
+如果你不想手动创建目录并搬运文件，可用“根目录投放 + 自动归位”流程：
+1. 将基座模型文件夹放到项目根目录，文件夹名建议 `Qwen3-1.7B`
+2. 将 LoRA 文件夹放到项目根目录，文件夹名建议 `adapter`（也兼容 `adapter_model` / `lora_adapter` / `router_adapter`）
+3. 运行自动归位脚本：
+
+```bash
+python scripts/setup_model_assets.py
+```
+
+脚本会自动将以上目录归位到默认加载路径，并给出检查结果。
+
+若你希望自定义路径，可通过环境变量覆盖：
+- `QWEN3_BASE_PATH`：基座模型目录
+- `ROUTER_ADAPTER_PATH`：LoRA 目录
+
 ## UI 启动与使用（Mac / Windows）
 
 测试界面脚本位置：`scripts/app_test_ui.py`
@@ -249,26 +272,32 @@ cp .env.example .env
 ### 1）环境准备
 
 - 需要安装 `streamlit`
-- 建议使用你当前项目环境（例如 Airouting）
+- 建议使用你当前项目环境（环境名可自定义）
 
-Mac（conda）示例：
+先激活你自己的项目环境（示例命令用的conda，按你本机实际环境名替换）：
 
 ```bash
-conda activate Airouting
+conda activate <你的环境名>
+```
+
+然后检查是否已安装：
+
+```bash
 python -c "import streamlit; print(streamlit.__version__)"
 ```
 
-Windows（conda）示例：
+如果未安装，可使用以下任一方式：
+
+Conda：
 
 ```bash
-conda activate Airouting
-python -c "import streamlit; print(streamlit.__version__)"
+conda install -c conda-forge -y streamlit
 ```
 
-如果未安装：
+Pip：
 
 ```bash
-conda install -n Airouting -c conda-forge -y streamlit
+pip install streamlit
 ```
 
 ### 2）启动命令
@@ -285,6 +314,8 @@ Windows（项目根目录执行）：
 streamlit run scripts/app_test_ui.py --server.headless true --server.port 8501
 ```
 
+注意：请在项目根目录执行以上命令，并使用 `scripts/app_test_ui.py` 这个路径启动。
+
 启动后默认访问：
 - `http://localhost:8501`
 
@@ -294,15 +325,22 @@ streamlit run scripts/app_test_ui.py --server.headless true --server.port 8501
 2. 右侧会同步展示结构化评级与日志。
 3. 侧边栏可切换推理模式：`规则引擎` 或 `小模型`。
 4. 切换模式后点击“应用模式并重建分类器”。
+5. 首次使用小模型前，建议先在侧边栏点击“检测小模型模式可加载性”。
+6. 若检测失败：先把下载的模型文件夹放到项目根目录，再点击“归位（从项目根目录）”或“自动归位根目录模型文件夹”。
+7. 即使小模型文件暂时缺失，UI 也会正常打开，并自动回退规则引擎。
 
 ### 4）常见问题
 
 - 页面显示规则路径、没有小模型：
 	- 在侧边栏切到 `小模型`，并点击“应用模式并重建分类器”。
+	- 若提示“当前指定目录下没有可用小模型文件”，说明文件尚未归位。
+	- 先点击“检测小模型模式可加载性”，确认默认路径所需文件已就位。
+	- 若未就位，请把基座模型与 LoRA 文件夹放到项目根目录后，点击“归位（从项目根目录）”或“自动归位根目录模型文件夹”。
 	- 若小模型加载失败，会自动回退规则引擎。
 
 - 端口占用（8501）：
 	- 可改端口，例如 `--server.port 8502`。
 
 - 命令找不到 streamlit：
-	- 说明当前终端不在目标环境，请先 `conda activate Airouting`。
+	- 说明当前终端不在目标环境，或该环境未安装 `streamlit`。
+	- 先激活你自己的项目环境，再执行安装检查：`python -c "import streamlit; print(streamlit.__version__)"`。
