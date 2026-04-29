@@ -53,6 +53,8 @@ SCRIPTS_DIR = PROJECT_ROOT / "scripts"
 OUTPUT_DIR = PROJECT_ROOT / "Kickstarter_Clean"
 DATASETS_DIR = PROJECT_ROOT / "datasets"
 LOGS_DIR = PROJECT_ROOT / "logs"
+EXPERIMENT_RESULTS_DIR = PROJECT_ROOT / "experiment_results"
+ANALYSIS_REPORTS_DIR = PROJECT_ROOT / "analysis_reports"
 
 # ==========================================
 # 日志标准化函数
@@ -339,6 +341,55 @@ def run_m7_processing():
         return False
 
 # ==========================================
+# 模块5：M16大规模实验与分析
+# ==========================================
+
+def run_m16_processing():
+    """
+    执行M16大规模实验与分析模块
+    执行500+次仿真实验，统计分析并生成分析Notebook
+    """
+    log_step(5, "执行M16大规模实验与分析 (m16.py)")
+
+    try:
+        script_path = SCRIPTS_DIR / "m16.py"
+        if not script_path.exists():
+            log_error(f"找不到脚本: {script_path}")
+            return False
+
+        log_info(f"执行脚本: {script_path}")
+
+        original_cwd = os.getcwd()
+
+        try:
+            os.chdir(SCRIPTS_DIR)
+
+            result = subprocess.run(
+                [sys.executable, "m16.py"],
+                capture_output=False,
+                timeout=7200  # 2小时超时
+            )
+
+            if result.returncode != 0:
+                log_error(f"M16处理失败，返回码: {result.returncode}")
+                return False
+
+            log_success("M16大规模实验与分析完成")
+            return True
+
+        finally:
+            os.chdir(original_cwd)
+
+    except subprocess.TimeoutExpired:
+        log_error("M16处理超时（>2小时）")
+        return False
+    except Exception as e:
+        log_error(f"M16处理异常: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+# ==========================================
 # 主工作流程
 # ==========================================
 
@@ -370,6 +421,8 @@ def main():
     # 创建输出目录
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     DATASETS_DIR.mkdir(parents=True, exist_ok=True)
+    EXPERIMENT_RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    ANALYSIS_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     
     # 依次执行各个模块
     modules = [
@@ -377,6 +430,7 @@ def main():
         ("M4特征工程与训练", run_m4_processing),
         ("M3仿真", run_m3_simulation),
         ("M7智能体池路由", run_m7_processing),
+        ("M16大规模实验与分析", run_m16_processing),
     ]
     
     results = {}
@@ -412,6 +466,8 @@ def main():
     m7_output_dir = OUTPUT_DIR / "m7_visualization"
     latest_m7_expert_chart = find_latest_file(m7_output_dir, "m7_expert_selection_", ".png")
     latest_m7_flow_chart = find_latest_file(m7_output_dir, "m7_route_flow_", ".png")
+    latest_experiment_result = find_latest_file(EXPERIMENT_RESULTS_DIR, "experiment_results_", ".json")
+    latest_analysis_report = find_latest_file(ANALYSIS_REPORTS_DIR, "analysis_report_", ".ipynb")
 
     with open(report_path, "w", encoding="utf-8") as report:
         report.write("运行报告\n")
@@ -428,6 +484,8 @@ def main():
         report.write(f"- M3结果: {latest_m3 if latest_m3 else '未生成'}\n")
         report.write(f"- M7专家选择图: {latest_m7_expert_chart if latest_m7_expert_chart else '未生成'}\n")
         report.write(f"- M7路由流程图: {latest_m7_flow_chart if latest_m7_flow_chart else '未生成'}\n")
+        report.write(f"- M16实验结果: {latest_experiment_result if latest_experiment_result else '未生成'}\n")
+        report.write(f"- M16分析报告: {latest_analysis_report if latest_analysis_report else '未生成'}\n")
 
     log_info(f"运行日志已保存: {log_file_path}")
     log_info(f"运行报告已保存: {report_path}")
