@@ -1,0 +1,15 @@
+# 1. 选择基础镜像（根据你的项目需求选择）
+FROM python:3.9-slim
+
+# 2. 设置工作目录
+WORKDIR /app
+
+# 3. 复制依赖文件并安装
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 4. 复制项目所有文件
+COPY . .
+
+# 5. 指定启动命令（例如你的入口文件）
+CMD ["python", "main.py"]
