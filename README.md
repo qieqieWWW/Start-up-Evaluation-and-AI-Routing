@@ -1,4 +1,67 @@
-﻿# M7 第一层上下文窗口（L1）
+﻿# Start-up Evaluation and AI Routing
+
+> 基于 Kickstarter 数据的初创项目风险评估与 AI 专家路由系统，支持规则引擎 + LLM 双模推理。
+
+## Web 界面快速启动
+
+项目提供 Streamlit Web 界面（`main_ui.py`），无需命令行即可完成全流程分析：
+
+### 安装依赖
+
+```bash
+pip install streamlit pandas numpy scikit-learn
+```
+
+### 一行启动
+
+```bash
+streamlit run main_ui.py --server.port 8501
+```
+
+启动后浏览器访问 **http://localhost:8501**
+
+### 功能概览
+
+| 功能 | 说明 |
+|------|------|
+| **文字描述输入** | 输入自然语言项目描述或 `GoalUSD:15000/Country:US/Category:Technology/DurationDays:60` 格式 |
+| **数据文件上传** | 上传 CSV/Excel，逐行批量分析 |
+| **M8 风险判定** | 关键词规则 + 文本风险分析，输出风险等级与极高风险词 |
+| **M7 专家路由** | 四层上下文（L1-L4）+ 意图识别 + 历史轨迹 → 动态路由至风控/财务/增长/运营专家 |
+| **M7 Blender 融合** | PairRanker 排序 + GenFuser 融合，输出统一决策稿 |
+| **M9 终极引擎** | 串联 M8+M7+M6+M10+M12 的完整决策流程 |
+| **M10 性能监控** | Token 消耗与瓶颈分析 |
+| **M12 OOD 高压测试** | 黑天鹅事件模拟与韧性评估 |
+| **MAS 黑板架构** | 多 Agent 黑板协作路由 |
+| **M5 自动化测试** | 批量测试用例生成与仿真执行 |
+
+### 侧边栏配置
+
+- **DeepSeek API Key**：填写后启用 LLM 推理（M7/M9），留空则使用规则引擎离线模式
+- **模块开关**：按需启用/关闭 M9、M10、M12、M5、MAS、Blender
+- **数据集工具**：一键运行 M2 数据清洗、M4 特征工程
+
+### 使用流程
+
+1. 启动服务后，在主界面输入项目描述或上传数据文件
+2. 点击 **开始分析**，系统自动执行 M8→M7→M6→M9→M10→M12 流水线
+3. 查看风险等级、专家路由、置信度、决策建议等结构化结果
+4. 展开各模块标签页查看详细中间结果
+
+---
+
+## 项目架构
+
+```
+用户输入 → parse_input() → project_data + user_query
+  → M8 风险判定 → M7 专家路由 → M7 LLM推理 + Blender
+  → M6 状态管理 → M9 终极引擎 → M10 性能监控 → M12 OOD测试
+  → MAS 黑板架构 → 输出 JSON + 可视化
+```
+
+---
+
+# M7 第一层上下文窗口（L1）
 
 新增了 `scripts/m7/m7_context_analyzer.py`，用于构建第一层上下文窗口：
 - 来源：用户直接输入 + 用户上传文件片段
