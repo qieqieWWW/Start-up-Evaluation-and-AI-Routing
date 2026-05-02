@@ -14,18 +14,29 @@ from typing import Dict, List, Any, Optional
 
 # ======================== 导入全部模块（你提供的所有文件） ========================
 # 注：若以下模块未实际存在，需先创建空占位文件避免导入错误
+
+# 首先添加项目路径到sys.path
+import sys
+from pathlib import Path
+SCRIPT_DIR = Path(__file__).parent.resolve()
+PROJECT_ROOT = SCRIPT_DIR.parent
+M7_DIR = SCRIPT_DIR / "m7"
+sys.path.insert(0, str(SCRIPT_DIR))
+sys.path.insert(0, str(M7_DIR))  # m7模块目录
+sys.path.insert(0, str(PROJECT_ROOT))
+
 try:
-    # M7 核心
-    from m7_expert_pool import get_expert_map
-    from m7_global_kb import retrieve_global_kb
-    from m7_intent_engine import recognize_intent
+    # M7 核心 - 注意路径：m7模块在scripts/m7/目录下
+    from m7.m7_expert_pool import get_expert_map
+    from m7.m7_global_kb import retrieve_global_kb
+    from m7.m7_intent_engine import recognize_intent
     from m8_rule_adapter import judge_project_risk_m8
-    from m7_router import route_experts
-    from m7_context_analyzer import build_layer1_context, build_layer2_context, build_layer3_context, build_layer4_context
-    from m7_prompt_builder import build_system_prompt, build_user_prompt
-    from m7_llm_client import DeepSeekClient
-    from m7_inference_runner import run_expert_llm_inference
-    from m7_blender import blend_candidates
+    from m7.m7_router import route_experts
+    from m7.m7_context_analyzer import build_layer1_context, build_layer2_context, build_layer3_context, build_layer4_context
+    from m7.m7_prompt_builder import build_system_prompt, build_user_prompt
+    from m7.m7_llm_client import DeepSeekClient
+    from m7.m7_inference_runner import run_expert_llm_inference
+    from m7.m7_blender import blend_candidates
 
     # M6 状态管理与日志
     from M6状态管理与日志系统 import EnvStateManager, EnvState
@@ -133,7 +144,10 @@ class M9UltimateRiskEngine:
         project_data: Dict[str, Any],
         user_id: str = "default_user",
         enable_ood_test: bool = False,
-        enable_perf_monitor: bool = True
+        enable_perf_monitor: bool = True,
+        # 新增：外部已计算的M8/M7结果，避免重复执行
+        external_m8_result: Dict = None,
+        external_m7_result: Dict = None,
     ) -> Dict[str, Any]:
         try:
             self.user_id = user_id
@@ -149,8 +163,33 @@ class M9UltimateRiskEngine:
             self._log("1/9 意图识别中...")
             intent = recognize_intent(user_query)
 
-            self._log("2/9 M8风险规则计算...")
-            risk_level, risk_reasons, intermediate = judge_project_risk_m8(project_data)
+            # 检查是否有外部传入的M8结果
+            if external_m8_result is not None:
+                self._log("2/9 使用外部M8风险结果...")
+                risk_level = external_m8_result.get("risk_level", "风险中等")
+                risk_reasons = external_m8_result.get("risk_reasons", [])
+                intermediate = external_m8_result.get("feature_values", {})
+                # 从risk_level提取normalized级别
+                if "很高" in risk_level or "high" in risk_level.lower():
+                    normalized_risk = "high"
+                elif "低" in risk_level or "low" in risk_level.lower():
+                    normalized_risk = "low"
+                elif "中" in risk_level or "medium" in risk_level.lower():
+                    normalized_risk = "medium"
+                else:
+                    normalized_risk = "medium"
+            else:
+                self._log("2/9 M8风险规则计算...")
+                # 传入user_query供M8分析文本风险
+                project_data_with_text = {**project_data, 'user_input': user_query}
+                risk_level, risk_reasons, intermediate = judge_project_risk_m8(project_data_with_text)
+                # 根据risk_level确定normalized_risk
+                if "很高" in risk_level or "high" in risk_level.lower():
+                    normalized_risk = "high"
+                elif "低" in risk_level or "low" in risk_level.lower():
+                    normalized_risk = "low"
+                else:
+                    normalized_risk = "medium"
 
             # M12 OOD
             ood_result = None
@@ -190,12 +229,27 @@ class M9UltimateRiskEngine:
                     ood_result = {"error": str(ood_e)}
 
             # ====================== 修复 2：补上必须的 intermediate 参数 ======================
-            self._log("4/9 智能专家路由匹配...")
-            route = route_experts(
-                risk_level=risk_level,
-                project_data=project_data,
-                intermediate=intermediate
-            )
+            # 检查是否有外部传入的M7结果
+            if external_m7_result is not None:
+                self._log("4/9 使用外部M7路由结果...")
+                # 构建与route_experts返回格式相同的结构
+                route = {
+                    "selected_experts": [
+                        {"name": name} for name in external_m7_result.get("selected_experts", [])
+                    ],
+                    "route_reason": external_m7_result.get("route_reason", ""),
+                    "confidence": external_m7_result.get("confidence", 0.8),
+                    "routing_scores": external_m7_result.get("routing_scores", {}),
+                    "normalized_risk_level": external_m7_result.get("normalized_risk_level", normalized_risk),
+                    "intent_result": external_m7_result.get("intent_analysis", {})
+                }
+            else:
+                self._log("4/9 智能专家路由匹配...")
+                route = route_experts(
+                    risk_level=risk_level,
+                    project_data=project_data,
+                    intermediate=intermediate
+                )
 
             self._log("5/9 构建多维度上下文...")
             ctx1 = build_layer1_context(user_input=user_query)
@@ -254,12 +308,29 @@ class M9UltimateRiskEngine:
             self.state_manager.on_step(final_state.to_dict())
 
             self._log("✅ 9/9 决策完成！")
+            
+            # 构建完整的intent信息
+            intent_result = {
+                "primary_intent": intent.get("primary_intent", "") if isinstance(intent, dict) else str(intent),
+                "sub_intent": intent.get("sub_intent", "") if isinstance(intent, dict) else "",
+                "urgency": intent.get("urgency", "") if isinstance(intent, dict) else "",
+                "raw_intent": intent
+            }
+            
+            # 如果有外部M7结果，也提取意图分析
+            if external_m7_result is not None:
+                m7_intent = external_m7_result.get("intent_analysis", {})
+                if m7_intent.get("primary_intent"):
+                    intent_result["primary_intent"] = m7_intent.get("primary_intent", "")
+                if m7_intent.get("sub_intent"):
+                    intent_result["sub_intent"] = m7_intent.get("sub_intent", "")
+            
             return {
                 "code": 0,
                 "msg": "成功",
                 "session_id": self.session_id,
                 "user_query": user_query,
-                "intent": intent,
+                "intent": intent_result,
                 "risk": {"level": risk_level, "reasons": risk_reasons, "score": intermediate},
                 "ood_test": ood_result,
                 "routing": route,

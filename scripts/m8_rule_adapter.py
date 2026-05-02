@@ -8,6 +8,7 @@
 # coding: utf-8
 
 import numpy as np
+import re
 from typing import Dict, List, Tuple, Any
 
 # ===================== 核心配置 =====================
@@ -62,8 +63,92 @@ DEFAULT_VALUES = {
     'goal_usd': 0.0,
     'actual_funding_usd': 0.0,
     'planned_duration_days': 30.0,
-    'country': 'US'
+    'country': 'US',
+    'user_input': ''  # 新增：用户输入文本
 }
+
+# ===================== 文本风险分析配置 =====================
+# 极高风险关键词（出现任一关键词，风险直接提升到极高）
+CRITICAL_RISK_KEYWORDS = [
+    "现金流断裂", "资金链断裂", "发不出工资", "濒临破产", "破产清算",
+    "账户冻结", "paypal冻结", "stripe冻结", "银行卡冻结",
+    "商标被抢注", "侵权诉讼", "法律诉讼", "面临罚款", "巨额罚款",
+    "出口管制", "制裁", "海关扣押", "货物被扣",
+    "paypal", "PayPal", "冻结", "runway", "断裂",
+]
+
+# 高风险关键词（每匹配1个，combined_risk +1.5）
+HIGH_RISK_KEYWORDS = [
+    "现金流", "资金紧张", "资金困难", "融资困难", "回款困难",
+    "stripe", "支付", "收款", "冻结风险",
+    "商标", "专利", "版权", "知识产权", "抢注",
+    "GDPR", "合规", "VAT", "税务", "出口管制",
+    "宕机", "数据泄露", "安全事故", "bug", "崩溃",
+    "流失", "竞争对手", "竞品", "差评",
+    "亏损", "盈利困难", "增长乏力", "获客困难",
+    "团队", "离职", "裁员", "关键人员",
+    "勒索", "攻击", "泄露", "诉讼",
+]
+
+# 中等风险关键词（每匹配1个，combined_risk +0.5）
+MEDIUM_RISK_KEYWORDS = [
+    "风险", "问题", "挑战", "困难", "压力",
+    "不确定", "担忧", "顾虑", "瓶颈",
+    "竞争", "市场", "增长", "目标",
+]
+
+
+def analyze_text_risk(user_input: str) -> Tuple[float, List[str], List[str]]:
+    """
+    分析user_input文本中的风险关键词
+    
+    Args:
+        user_input: 用户输入的文本内容
+        
+    Returns:
+        (risk_bonus, matched_critical, matched_high): 
+        - risk_bonus: 需要添加到combined_risk的分数
+        - matched_critical: 匹配的极高风险关键词
+        - matched_high: 匹配的高风险关键词
+    """
+    if not user_input:
+        return 0.0, [], []
+    
+    risk_bonus = 0.0
+    matched_critical = []
+    matched_high = []
+    
+    text_lower = user_input.lower()
+    
+    # 检查极高风险关键词（每个+4，最多+8）
+    critical_count = 0
+    for kw in CRITICAL_RISK_KEYWORDS:
+        if kw.lower() in text_lower:
+            matched_critical.append(kw)
+            if critical_count < 2:  # 最多算2个
+                risk_bonus += 4.0
+            critical_count += 1
+    
+    # 检查高风险关键词（每个+1，最多+6）
+    high_count = 0
+    for kw in HIGH_RISK_KEYWORDS:
+        if kw.lower() in text_lower:
+            matched_high.append(kw)
+            if high_count < 6:  # 最多算6个不同类别
+                risk_bonus += 1.0
+            high_count += 1
+    
+    # 检查中等风险关键词（整体+0.5，不重复计数）
+    has_medium_risk = False
+    for kw in MEDIUM_RISK_KEYWORDS:
+        if kw.lower() in text_lower:
+            has_medium_risk = True
+            break
+    if has_medium_risk:
+        risk_bonus += 0.5
+    
+    return risk_bonus, matched_critical, matched_high
+
 
 # ===================== 工具函数 =====================
 def _safe_divide(a: float, b: float, default: float = 0.0) -> float:
@@ -99,6 +184,16 @@ def judge_project_risk_m8(project_data: Dict[str, Any], verbose: bool = True) ->
     intermediate = {}  # 核心：必须包含脚本需要的6个特征字段
     is_high_fail = project_data['main_category'] in HIGH_FAIL_CATEGORIES
     
+    # 1.5 文本风险分析（新增：分析user_input中的风险关键词）
+    user_input = project_data.get('user_input', '')
+    text_risk_bonus, matched_critical, matched_high = analyze_text_risk(user_input)
+    
+    # 如果有匹配的极高风险关键词，添加到原因列表
+    if matched_critical:
+        reasons.append(f"【文本风险】检测到极高风险关键词：{', '.join(matched_critical)}")
+    if matched_high:
+        reasons.append(f"【文本风险】检测到高风险关键词：{', '.join(matched_high[:5])}{'...' if len(matched_high) > 5 else ''}")
+    
     # 2. 提取所有必要字段并做合法性校验
     goal_ratio = _validate_numeric(project_data['goal_ratio'], 'goal_ratio')
     time_penalty = _validate_numeric(project_data['time_penalty'], 'time_penalty')
@@ -122,6 +217,10 @@ def judge_project_risk_m8(project_data: Dict[str, Any], verbose: bool = True) ->
     normalized_weighted = weighted_sum / total_weight if total_weight > 0 else 0.0
     raw_sum = goal_ratio + time_penalty + category_risk + country_factor + urgency_score
     combined_risk = (normalized_weighted * NORMALIZED_RATIO + raw_sum * RAW_SUM_RATIO) * FEATURE_WEIGHTS['combined_risk']
+    
+    # 3.5 应用文本风险加成（新增）
+    if text_risk_bonus > 0:
+        combined_risk += text_risk_bonus
     
     # 5. 最终平衡版校验规则
     core_triggered = 0

@@ -3,15 +3,16 @@ import sys
 import json
 from pathlib import Path
 
-from m7_router import route_experts
-from m7_inference_runner import run_expert_llm_inference, run_expert_llm_inference_with_blender
-
-SCRIPT_DIR = Path(__file__).resolve().parent.parent
+# 先设置路径再导入
+SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 if str(SCRIPT_DIR) not in sys.path:
 	sys.path.insert(0, str(SCRIPT_DIR))
 if str(PROJECT_ROOT) not in sys.path:
 	sys.path.insert(0, str(PROJECT_ROOT))
+
+from m7_router import route_experts
+from m7_inference_runner import run_expert_llm_inference, run_expert_llm_inference_with_blender
 
 from m8_rule_adapter import judge_project_risk_m8
 

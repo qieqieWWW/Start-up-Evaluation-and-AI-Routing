@@ -1,4 +1,11 @@
+import sys
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# 动态添加 m7 目录到 sys.path
+_m7_dir = Path(__file__).parent
+if str(_m7_dir) not in sys.path:
+    sys.path.insert(0, str(_m7_dir))
 
 from m7_profile_rag import build_profile_summary, retrieve_profile_records
 

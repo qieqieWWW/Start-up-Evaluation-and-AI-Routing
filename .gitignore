@@ -13,3 +13,4 @@ models/
 __pycache__/
 *.pyc
 .DS_Store
+m9_batch_logs/

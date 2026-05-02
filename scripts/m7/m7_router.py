@@ -1,4 +1,11 @@
 from typing import Any, Dict, List, Optional, Tuple
+import sys
+from pathlib import Path
+
+# 动态添加 m7 目录到 sys.path
+_m7_dir = Path(__file__).parent
+if str(_m7_dir) not in sys.path:
+    sys.path.insert(0, str(_m7_dir))
 
 from m7_context_analyzer import build_layer3_context, build_layer4_context
 from m7_expert_pool import get_expert_map
