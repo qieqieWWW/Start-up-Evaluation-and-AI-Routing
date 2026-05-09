@@ -10,3 +10,7 @@
     Step 2. 安装make：
         choco install make
     重新打开终端即可执行
+
+pm2 delete feishu-long
+pm2 start ecosystem-feishu-long.config.js --only feishu-long --update-env
+pm2 save

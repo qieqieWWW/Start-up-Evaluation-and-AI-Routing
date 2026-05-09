@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-04-13T06:25:37.686310",
+  "total_evaluations": 2,
+  "summary": {
+    "avg_evidence_coverage": 0.25,
+    "avg_evidence_recall_rate": 0.5,
+    "avg_confidence_score": 0.35,
+    "avg_hallucination_score": 0.75,
+    "avg_conflict_score": 0.0,
+    "total_statements": 3,
+    "verified_statements": 1,
+    "unverified_statements": 2
+  },
+  "decision_distribution": {
+    "reject": 2
+  },
+  "recommendations": [
+    "证据覆盖率低于90%，补齐 claim -> evidence_id 映射",
+    "可回查率低于95%，优先修复 evidence_id 对应关系",
+    "无证据硬结论比例偏高，提升拒答/降级触发",
+    "拒绝率高于30%，需优化上游证据编排质量"
+  ]
+}

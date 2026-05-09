@@ -152,6 +152,8 @@ def route_experts(
 	profile_top_k: int = 5,
 	global_kb_path: Optional[str] = None,
 	global_kb_top_k: int = 5,
+	knowledge_graph_path: Optional[str] = None,
+	knowledge_graph_top_k: int = 3,
 	conversation_turns: Optional[List[Dict[str, str]]] = None,
 	previous_state: str = "",
 	intent_library_path: Optional[str] = None,
@@ -197,6 +199,8 @@ def route_experts(
 		current_query=user_input,
 		top_k=global_kb_top_k,
 		kb_path=global_kb_path,
+		knowledge_graph_path=knowledge_graph_path,
+		knowledge_graph_top_k=knowledge_graph_top_k,
 	)
 	intent_result = recognize_intent(
 		user_input=user_input,
@@ -233,6 +237,10 @@ def route_experts(
 	if isinstance(kb_summary, dict) and kb_summary.get("top_categories"):
 		reason_parts.append("结合全局知识库中的行业基准与风险模型进行Grounding修正。")
 
+	kg_summary = layer4_context.get("knowledge_graph_summary", {})
+	if isinstance(kg_summary, dict) and int(kg_summary.get("hit_count", 0) or 0) > 0:
+		reason_parts.append("结合知识图谱关系命中进行因果约束校正。")
+
 	if intent_result:
 		reason_parts.append(
 			f"意图识别结果：{intent_result.get('primary_intent', 'unknown')} / {intent_result.get('sub_intent', 'unknown')}。"
@@ -258,5 +266,7 @@ def route_experts(
 		"routing_scores": {name: round(score, 4) for name, score in ranked if name in expert_map},
 		"intent_result": intent_result,
 		"trajectory_context": trajectory_context,
+		"knowledge_graph_hits": layer4_context.get("knowledge_graph_hits", []),
+		"knowledge_graph_summary": layer4_context.get("knowledge_graph_summary", {}),
 	}
 

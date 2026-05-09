@@ -86,3 +86,15 @@ class DeepSeekClient:
                     break
 
         raise RuntimeError(f"DeepSeek API 调用失败: {last_error}")
+
+
+def make_llm_client(
+    backend: str = "deepseek",
+    model: str = "deepseek-chat",
+    expert_name: Optional[str] = None,
+) -> DeepSeekClient:
+    """
+    简单工厂函数：项目当前仅使用 DeepSeek 后端。
+    接受兼容参数以保持与现有调用处的签名一致，但始终返回 `DeepSeekClient`。
+    """
+    return DeepSeekClient(model=model)

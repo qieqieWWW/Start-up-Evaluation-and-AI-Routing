@@ -228,11 +228,19 @@ M7 推理链路已经支持可选参数：
 - `global_kb_path`
 - `global_kb_top_k`
 
-本项目聚焦于使用Kickstarter平台的项目数据建立初创项目的成功率预测模型并输出决策建议，同时模型将由独特的路由机制进行切换，保证资源的合理充分利用。
+本项目是 **OPC（One-Person Company）可行性评估系统**，旨在解决一人公司创业前最核心的问题——**"这个项目到底活不活得下去"**。系统通过多智能体编排与四层偏置路由机制，从风险评估、可行性分析、证据收集、法律合规四个维度对创业构想进行全方位诊断，输出结构化决策建议。
+
+> **定位说明**：项目早期曾探索基于 Kickstarter 数据的成功率预测模型，后经迭代已聚焦为纯 OPC 可行性评估方向。历史数据集仍可用于风险基准参照，但核心推理链路已围绕"一人公司生存能力诊断"重新设计。
 
 在docs里查看仓库基本使用流程
 
-由于github不允许过大文件上传，我们需要从https://webrobots.io/kickstarter-datasets/ 下载原始数据集放到项目目录（目前需选择2025-12-18的csv，或自助修改data_process.py中的dataset_folder_name字段为原始集文件夹），然后用scripts/data_process.py对其进行清洗
+### 可选：历史数据集（用于风险基准参照）
+
+系统核心推理链路**不依赖外部数据集**即可运行。若希望启用知识图谱中的相似项目风险参照功能，可下载历史项目数据：
+
+由于 GitHub 不允许过大文件上传，我们需要从 https://webrobots.io/kickstarter-datasets/ 下载原始数据集放到项目目录，然后用 `scripts/data_process.py` 对其进行清洗。
+
+> 该数据集仅用于知识图谱引擎的风险基准参照，不参与核心 OPC 评估推理。
 
 添加pre-commit规则，配置文件在config/pre-commit-config.yaml，首次使用需（pip）安装pre-commit工具
 
@@ -249,11 +257,11 @@ M7 推理链路已经支持可选参数：
 
 ### 运行前条件
 
-1. 数据集目录存在（任一位置）：
+1. **Python 依赖已安装**（最低包含）：`pandas`、`numpy`。
+2. 若需 M7 真实 LLM 推理：设置 `DEEPSEEK_API_KEY`（DeepSeek）。
+3. **可选** — 知识图谱相似项目参照功能需历史数据集目录（任一位置）：
 	- `Kickstarter_2025-12-18T03_20_24_296Z`
 	- `datasets/Kickstarter_2025-12-18T03_20_24_296Z`
-2. Python依赖已安装（最低包含）：`pandas`、`numpy`、`scikit-learn`、`gymnasium`。
-3. 若需M7真实LLM推理：设置 `DEEPSEEK_API_KEY`。
 
 ### 运行命令
 
@@ -261,17 +269,20 @@ M7 推理链路已经支持可选参数：
 /Users/qieqieqie/Desktop/Start-up-Evaluation-and-AI-Routing/.venv/bin/python main.py
 ```
 
-## M7接入真实DeepSeek API（Prompt工程）
+## M7 LLM 推理后端配置
 
-已支持在 `scripts/m7/m7_demo.py` 中走真实LLM推理链路（M8风险判定 → M7专家路由 → DeepSeek专家输出）。
+已支持在 `scripts/m7/m7_demo.py` 中走真实 LLM 推理链路（M8 风险判定 → M7 专家路由 → 多专家 LLM 输出 → Blender 融合）。
+
+**当前后端：DeepSeek API**
 
 ### 1）配置环境变量
 
 ```bash
 export DEEPSEEK_API_KEY="你的deepseek_api_key"
-# 可选：默认 deepseek-chat
 export DEEPSEEK_MODEL="deepseek-chat"
 ```
+
+当前仅使用 DeepSeek 作为 LLM 后端。请通过设置 `DEEPSEEK_API_KEY` 启用真实推理。
 
 ### 2）运行
 
@@ -280,10 +291,10 @@ export DEEPSEEK_MODEL="deepseek-chat"
 ```
 
 说明：
-- 若未配置 `DEEPSEEK_API_KEY`，脚本会自动跳过真实LLM调用，仅保留M8→M7路由演示。
-- 若缺少 `matplotlib`，脚本会跳过M7可视化，但不影响核心路由与LLM调用。
+- 若未配置 `DEEPSEEK_API_KEY`，脚本会自动跳过真实 LLM 调用，仅保留 M8→M7 路由演示。
+- 若缺少 `matplotlib`，脚本会跳过 M7 可视化，但不影响核心路由与 LLM 调用。
 
-### 3）团队协作（push到仓库给组员）
+### 3）团队协作（push 到仓库给组员）
 
 请不要把真实 API Key 提交到仓库。仓库只保留 `.env.example` 模板，每位组员在本地创建自己的 `.env`。
 

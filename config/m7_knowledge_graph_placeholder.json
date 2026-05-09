@@ -1,0 +1,52 @@
+{
+  "graph_id": "startup-risk-kg-placeholder",
+  "version": "v0.1",
+  "nodes": [
+    {
+      "id": "N_RUNWAY",
+      "label": "现金流跑道",
+      "type": "risk_factor"
+    },
+    {
+      "id": "N_MARKET_VALIDATION",
+      "label": "市场验证",
+      "type": "risk_factor"
+    },
+    {
+      "id": "N_POLICY_VOLATILITY",
+      "label": "政策波动",
+      "type": "external_risk"
+    },
+    {
+      "id": "N_CHANNEL_REDUNDANCY",
+      "label": "渠道冗余",
+      "type": "mitigation"
+    }
+  ],
+  "edges": [
+    {
+      "source": "N_RUNWAY",
+      "target": "N_MARKET_VALIDATION",
+      "relation": "constrains",
+      "keywords": ["现金流", "runway", "验证", "试错"],
+      "source_label": "Kickstarter_derived_rulebook",
+      "evidence_snippet": "现金流跑道不足会直接压缩市场验证窗口，导致试错次数下降。"
+    },
+    {
+      "source": "N_POLICY_VOLATILITY",
+      "target": "N_CHANNEL_REDUNDANCY",
+      "relation": "requires",
+      "keywords": ["跨境", "政策", "平台", "渠道"],
+      "source_label": "Crossborder_case_library",
+      "evidence_snippet": "跨境政策波动场景下，需要多渠道冗余来降低单平台风险。"
+    },
+    {
+      "source": "N_CHANNEL_REDUNDANCY",
+      "target": "N_RUNWAY",
+      "relation": "protects",
+      "keywords": ["冗余", "回款", "现金流"],
+      "source_label": "Ops_playbook_v2",
+      "evidence_snippet": "渠道冗余可在单渠道失效时维持回款稳定，延长现金流安全边际。"
+    }
+  ]
+}

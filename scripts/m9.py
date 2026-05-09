@@ -35,7 +35,7 @@ try:
     from m7.m7_context_analyzer import build_layer1_context, build_layer2_context, build_layer3_context, build_layer4_context
     from m7.m7_prompt_builder import build_system_prompt, build_user_prompt
     from m7.m7_llm_client import DeepSeekClient
-    from m7.m7_inference_runner import run_expert_llm_inference
+    from m7.m7_inference_runner import run_expert_llm_inference_with_blender
     from m7.m7_blender import blend_candidates
 
     # M6 状态管理与日志
@@ -257,19 +257,30 @@ class M9UltimateRiskEngine:
             ctx3 = build_layer3_context(user_id=user_id, current_query=user_query)
             ctx4 = build_layer4_context(current_query=user_query)
         
-            self._log("6/9 多专家并行推理...")
-            candidates = run_expert_llm_inference(
+            self._log("6/9 多专家并行推理、融合与闸门校验...")
+            blend = run_expert_llm_inference_with_blender(
                 risk_level=risk_level,
                 reasons=risk_reasons,
                 intermediate=intermediate,
                 project_data=project_data,
                 route_result=route,
                 user_id=user_id,
-                user_input=user_query
+                user_input=user_query,
+                uploaded_snippets=None,
+                conversation_turns=[],
+                summary_buffer="",
+                session_max_turns=6,
+                session_strategy="sliding_window",
+                profile_db_path=None,
+                profile_top_k=5,
+                global_kb_path=None,
+                global_kb_top_k=5,
+                auto_profile_log=False,
+                top_k=2,
+                model=os.getenv("DEEPSEEK_MODEL", "deepseek-chat"),
+                use_llm_fuser=bool(self.llm_client),
             )
-            
-            self._log("7/9 多专家结果融合...")
-            blend = blend_candidates(candidates, use_llm_fuser=bool(self.llm_client))
+            candidates = blend.get("candidates", [])
 
             # M10
             perf_report = None
@@ -304,7 +315,10 @@ class M9UltimateRiskEngine:
                     ).to_dict()
                 }
 
-            final_state = EnvState(project_id=user_id, action="decision_completed", reward=1.0 if blend["fused_result"] else 0.0)
+            final_payload = blend.get("final_result", blend.get("fused_result", {}))
+            gate_info = final_payload.get("gate", {}) if isinstance(final_payload, dict) else {}
+            final_reward = 1.0 if final_payload and not gate_info.get("blocked", False) else 0.0
+            final_state = EnvState(project_id=user_id, action="decision_completed", reward=final_reward)
             self.state_manager.on_step(final_state.to_dict())
 
             self._log("✅ 9/9 决策完成！")
@@ -335,7 +349,8 @@ class M9UltimateRiskEngine:
                 "ood_test": ood_result,
                 "routing": route,
                 "experts": candidates,
-                "final": blend["fused_result"],
+                "final": final_payload,
+                "gate": blend.get("gate", {}),
                 "performance": perf_report,
                 "state_trace": self.state_manager.get_trace()
             }

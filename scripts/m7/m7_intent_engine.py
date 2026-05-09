@@ -11,7 +11,7 @@ _m7_dir = Path(__file__).parent
 if str(_m7_dir) not in sys.path:
     sys.path.insert(0, str(_m7_dir))
 
-from m7_llm_client import DeepSeekClient
+from m7_llm_client import make_llm_client
 
 
 def _default_intent_library_path() -> Path:
@@ -216,7 +216,7 @@ def recognize_intent(
 
     if os.getenv("DEEPSEEK_API_KEY"):
         try:
-            client = DeepSeekClient(model=model)
+            client = make_llm_client(backend="auto", model=model)
             resp = client.chat(
                 messages=_build_intent_prompt(user_input=user_input, semantic_matches=semantic_matches),
                 temperature=0.1,

@@ -9,6 +9,7 @@ if str(_m7_dir) not in sys.path:
     sys.path.insert(0, str(_m7_dir))
 
 from m7_global_kb import retrieve_global_kb, summarize_global_kb
+from m7_knowledge_graph import retrieve_knowledge_graph_hits, summarize_knowledge_graph_hits
 from m7_profile_rag import build_profile_summary, retrieve_profile_records
 
 
@@ -134,6 +135,8 @@ def build_layer4_context(
     current_query: str,
     top_k: int = 5,
     kb_path: Optional[str] = None,
+    knowledge_graph_path: Optional[str] = None,
+    knowledge_graph_top_k: int = 3,
 ) -> Dict[str, Any]:
     """Build layer-4 context from static global knowledge base retrieval."""
     retrieved = retrieve_global_kb(
@@ -142,6 +145,12 @@ def build_layer4_context(
         kb_path=kb_path,
     )
     kb_summary = summarize_global_kb(retrieved)
+    kg_hits = retrieve_knowledge_graph_hits(
+        query=current_query,
+        top_k=knowledge_graph_top_k,
+        graph_path=knowledge_graph_path,
+    )
+    kg_summary = summarize_knowledge_graph_hits(kg_hits)
 
     return {
         "layer": "L4_global_knowledge",
@@ -149,6 +158,9 @@ def build_layer4_context(
         "top_k": max(1, top_k),
         "retrieved_records": retrieved,
         "kb_summary": kb_summary,
+        "knowledge_graph_hits": kg_hits,
+        "knowledge_graph_summary": kg_summary,
+        "knowledge_graph_provider": "placeholder_json_graph_adapter",
         "notes": "grounding references for professional baseline",
     }
 

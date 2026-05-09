@@ -9,7 +9,7 @@ _m7_dir = Path(__file__).parent
 if str(_m7_dir) not in sys.path:
     sys.path.insert(0, str(_m7_dir))
 
-from m7_llm_client import DeepSeekClient
+from m7_llm_client import make_llm_client
 
 
 def _candidate_quality_score(candidate: Dict[str, Any]) -> float:
@@ -206,7 +206,7 @@ def _llm_fuse_if_available(
     )
 
     try:
-        client = DeepSeekClient(model=model)
+        client = make_llm_client(backend="auto", model=model)
         resp = client.chat(
             messages=[
                 {"role": "system", "content": system_prompt},

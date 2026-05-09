@@ -491,15 +491,13 @@ class ComplexityClassifier:
             raw_output = re.sub(r"```json\s*|\s*```", "", raw_output)
             raw_output = raw_output.replace("'", '"')
 
-            match = re.search(r"\{.*\}", raw_output, re.DOTALL)
-            if match:
-                raw_output = match.group()
-            else:
+            json_payload = self._extract_first_json_object(raw_output)
+            if not json_payload:
                 fallback = self._rule_based_predict(user_input)
                 fallback["reason"] = "model returned non-json output; fallback to rule"
                 return self._canonicalize_router_output(fallback, user_input, "model_non_json_fallback")
 
-            result = json.loads(raw_output)
+            result = json.loads(json_payload)
 
             normalized = self._normalize_to_router_schema(result, user_input)
             if normalized is not None:
@@ -517,6 +515,43 @@ class ComplexityClassifier:
         except Exception as e:
             print(f"WARN JSON 解析失败: {str(e)} -> 触发规则引擎 fallback")
             return self._rule_based_predict(user_input)
+
+    @staticmethod
+    def _extract_first_json_object(text: str) -> str | None:
+        start = text.find("{")
+        while start >= 0:
+            depth = 0
+            in_string = False
+            escape = False
+
+            for index in range(start, len(text)):
+                ch = text[index]
+
+                if in_string:
+                    if escape:
+                        escape = False
+                        continue
+                    if ch == "\\":
+                        escape = True
+                        continue
+                    if ch == '"':
+                        in_string = False
+                    continue
+
+                if ch == '"':
+                    in_string = True
+                    continue
+
+                if ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        return text[start : index + 1]
+
+            start = text.find("{", start + 1)
+
+        return None
 
     def classify(self, user_input: str) -> RoutingDecision:
         result = self.predict(user_input)
