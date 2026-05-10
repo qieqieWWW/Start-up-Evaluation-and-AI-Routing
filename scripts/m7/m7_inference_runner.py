@@ -550,6 +550,9 @@ def run_expert_llm_inference_with_blender(
     use_llm_fuser: bool = True,
 ) -> Dict[str, Any]:
     """Run expert inference then blend outputs via PairRanker + GenFuser."""
+    search_decision: Optional[SearchDecision] = None
+    kg_engine: Optional[Any] = None
+    client: Optional[Any] = None
     candidates = run_expert_llm_inference(
         risk_level=risk_level,
         reasons=reasons,

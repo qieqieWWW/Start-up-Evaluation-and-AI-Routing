@@ -67,5 +67,2245 @@
       "source": "m7_profile_autolog_demo"
     },
     "recorded_at": "2026-03-21T13:09:13.591563+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T19:10:06.770502+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T19:47:48.461921+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T19:58:30.603135+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:07:10.932709+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:08:12.779008+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:08:34.091014+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:08:54.439306+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:09:15.294541+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:09:32.046681+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:10:09.352618+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:10:33.350285+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:10:54.893780+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:11:14.272254+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:11:36.453467+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:12:19.067570+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:13:21.940100+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:13:43.726154+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:14:05.442689+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:14:27.642421+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:14:45.311541+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:15:22.822481+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:15:46.860047+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:16:10.311525+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:16:33.375494+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:44:05.758753+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:45:05.027561+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:45:26.501965+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:45:47.268077+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:46:07.510359+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:46:25.169801+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:47:02.585599+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:47:20.123548+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:47:34.704025+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T20:47:55.698748+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:01:18.558684+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:02:23.166563+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:02:47.255548+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:03:11.546127+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:03:33.590977+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:03:52.583021+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:04:29.680730+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:04:47.188346+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:05:01.935768+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:05:25.831785+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:17:39.185222+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:18:38.540320+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:19:22.123064+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:20:06.102226+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:20:51.762250+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:21:34.261279+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:22:15.782977+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:22:56.469975+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:23:09.945954+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Fittrack AI\n品类: Technology\n目标金额: 80000\n已筹集: 15000\n支持者: 32\n国家: US\n持续时间: 45天\n\n项目描述: 一款面向独立健身教练的 AI 客户管理 SaaS 工具，提供自动排课、学员进度追踪和智能续费提醒。创始人单人开发，已完成 MVP 原型，有 5 个种子用户。预算主要用于服务器部署和首批",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-09T21:23:31.632171+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:14:12.766661+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:15:13.898120+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:16:08.295675+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:16:59.271174+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:17:55.793188+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:18:39.411768+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:19:24.369524+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:20:11.781591+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:20:27.918663+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Art"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Community Canvas\n品类: Arts\n目标金额: 12000\n已筹集: 9500\n支持者: 186\n国家: US\n持续时间: 50天\n\n项目描述: 一个社区共创壁画艺术项目，已有 3 人核心团队（项目经理+画师+社区运营），过去曾成功完成过 2 个小规模众筹。目前融资进度已达 79%，剩余 30 天。资金用于墙面租赁、环保颜料采购和",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险较高"
+    },
+    "recorded_at": "2026-05-10T09:20:51.851393+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:29:22.717617+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:30:34.300660+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:31:29.975824+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:32:27.015344+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:33:25.587824+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:34:13.097761+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:34:56.011325+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:35:49.870529+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:36:07.453845+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: Urban Frames\n品类: Photography\n目标金额: 3500\n已筹集: 3800\n支持者: 72\n国家: US\n持续时间: 21天\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。我和一位设计师搭档完成制作，成品将在下月本地艺术节首发。",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T09:36:36.666159+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:49:20.882032+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:50:27.653260+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:51:18.658037+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:52:06.451929+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:53:01.043672+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:53:50.713541+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:54:32.799453+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:55:24.615062+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:55:39.872927+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Photography"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:low"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 目标金额: 3500 | 已筹集: 3800 | 品类: Photography | 国家: US | 持续时间: 21天 | 支持者: 72\n\n项目描述: 一本城市建筑摄影的限定版画册。已完成全部拍摄和排版，印刷厂已确认排期。首批印刷 200 册，已在本地书店获得 50 册预订。",
+    "preference_note": "route_reason=低风险转向增长与运营放大。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：risk_assessment / general_risk。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "growth_strategist",
+        "ops_executor"
+      ],
+      "risk_level": "风险较低"
+    },
+    "recorded_at": "2026-05-10T09:56:02.663648+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:02:24.153183+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:03:45.602048+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:04:44.024053+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:05:40.153077+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:06:32.326344+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:07:21.687358+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:08:11.442705+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:08:59.359790+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:09:15.565478+00:00"
+  },
+  {
+    "user_id": "web_user",
+    "industry_tags": [
+      "Technology"
+    ],
+    "preferences": [
+      "auto_logged",
+      "route:high"
+    ],
+    "risk_appetite": "medium",
+    "assessment_summary": "用户本轮查询: 项目名称: 书虫成长 团队 3 人（我负责产品+技术，合伙人是前出版社编辑，设计师兼职），目前在做一款面向 5-8 岁儿童的 AI 分级阅读 SaaS。已内测 3 个月，有 12 所合作幼儿园试用，月活 430 个孩子，续费率 83%。技术栈已验证，服务器成本可控。上一轮朋友投了 50 万 RMB，花在了内容生产和工程师工资上，目前还剩 20 万。现在想融 ",
+    "preference_note": "route_reason=高风险优先风控与财务兜底。 结合用户历史偏好（risk_appetite=medium）进行个性化偏置。 结合全局知识库中的行业基准与风险模型进行Grounding修正。 意图识别结果：team_evaluation / execution_capability。 当前会话状态：Routing_Ready。",
+    "common_needs": "",
+    "industry_comment": "",
+    "meta": {
+      "source": "run_expert_llm_inference",
+      "selected_experts": [
+        "risk_guardian",
+        "finance_advisor"
+      ],
+      "risk_level": "风险很高"
+    },
+    "recorded_at": "2026-05-10T10:09:41.395553+00:00"
   }
 ]

@@ -97,6 +97,11 @@ def _import_m12():
     return OODScenarioGenerator, ResilienceEvaluator, OODConfig
 
 
+def _import_m15():
+    from m15 import run_ablation_experiments
+    return run_ablation_experiments
+
+
 def _import_m2():
     # M2 是脚本式运行，用 subprocess 调用
     return str(SCRIPTS_DIR / "data_process.py")
@@ -218,24 +223,41 @@ def text_to_project_data(text: str) -> Tuple[Dict[str, Any], str]:
 
 
 def _kv_to_project_data(kv: Dict[str, str]) -> Dict[str, Any]:
-    """将键值对映射转为 project_data"""
+    """将键值对映射转为 project_data（支持中英文键名）"""
     result = {"_parsed": False}
     try:
-        if "goalusd" in kv or "goal" in kv:
-            result["goal_usd"] = float(kv.get("goalusd", kv.get("goal", "0")).replace(",", "").replace("$", ""))
-        if "country" in kv:
-            c = kv["country"].lower().strip()
+        # 中文键名 → 英文键名 映射
+        cn_key = {k.lower().strip(): v for k, v in kv.items()}
+        cn_map = {
+            "目标金额": "goalusd", "目标": "goalusd", "goalusd": "goalusd", "goal": "goalusd",
+            "已筹集": "pledged", "已筹": "pledged", "pledged": "pledged", "funding": "pledged",
+            "品类": "category", "类别": "category", "category": "category", "maincategory": "category",
+            "国家": "country", "country": "country",
+            "持续时间": "durationdays", "周期": "durationdays", "durationdays": "durationdays", "duration": "durationdays",
+            "支持者": "backers", "backers": "backers",
+        }
+        eng_kv = {}
+        for cn, eng in cn_map.items():
+            if cn in cn_key:
+                eng_kv[eng] = cn_key[cn]
+
+        if "goalusd" in eng_kv:
+            result["goal_usd"] = float(eng_kv["goalusd"].replace(",", "").replace("$", ""))
+        if "country" in eng_kv:
+            c = eng_kv["country"].lower().strip()
             result["country"] = c.upper()
             result["country_factor"] = COUNTRY_FACTOR_MAP.get(c, 0.5)
-        if "category" in kv or "maincategory" in kv:
-            cat = kv.get("category", kv.get("maincategory", "Technology")).lower().strip()
+        if "category" in eng_kv:
+            cat = eng_kv["category"].lower().strip()
             result["main_category"] = cat.title()
             result["category_risk"] = CATEGORY_RISK_MAP.get(cat, 0.5)
-        if "durationdays" in kv or "duration" in kv:
-            result["duration_days"] = int(float(kv.get("durationdays", kv.get("duration", "30"))))
-        if "pledged" in kv or "funding" in kv:
-            result["pledged_usd"] = float(kv.get("pledged", kv.get("funding", "0")).replace(",", "").replace("$", ""))
+        if "durationdays" in eng_kv:
+            result["duration_days"] = int(float(eng_kv["durationdays"]))
+        if "pledged" in eng_kv:
+            result["pledged_usd"] = float(eng_kv["pledged"].replace(",", "").replace("$", ""))
             result["actual_funding_usd"] = result["pledged_usd"]
+        if "backers" in eng_kv:
+            result["backers_count"] = int(float(eng_kv["backers"]))
 
         goal = result.get("goal_usd", 0)
         pledged = result.get("pledged_usd", result.get("actual_funding_usd", 0))
@@ -254,7 +276,7 @@ def _kv_to_project_data(kv: Dict[str, str]) -> Dict[str, Any]:
         )
         result["planned_duration_days"] = result.get("duration_days", 30)
 
-        if "goal_usd" in result:
+        if "goal_usd" in result and result["goal_usd"] > 0:
             result["_parsed"] = True
     except Exception:
         pass
@@ -266,20 +288,42 @@ def _infer_project_data_from_text(text: str) -> Dict[str, Any]:
     import re
     text_lower = text.lower()
 
-    # 尝试提取金额
+    # 尝试从结构化中文格式提取关键字段: 目标金额/已筹集/品类/国家/持续时间
     goal_usd = 15000.0
-    money_match = re.search(r'(\d[\d,]*(?:\.\d+)?)\s*(万|w|k|m|美元|usd|\$|元)', text_lower)
-    if money_match:
-        val = float(money_match.group(1).replace(",", ""))
-        unit = money_match.group(2)
-        if unit in ("万", "w"):
-            goal_usd = val * 10000
-        elif unit in ("k",):
-            goal_usd = val * 1000
-        elif unit in ("m",):
-            goal_usd = val * 1000000
+    pledged_usd = 0.0
+
+    # 尝试提取"目标金额: XXXX"格式
+    goal_match = re.search(r'目标金额[：:]\s*([\d,]+)', text)
+    if goal_match:
+        goal_usd = float(goal_match.group(1).replace(",", ""))
+    else:
+        # 优先找与"融"相关的金额（"想融 X 万"、"融资 X 万"、"目标 X 万"）
+        funding_match = re.search(r'(?:融|融资|募资)[资]?\s*(\d[\d,]*(?:\.\d+)?)\s*(万|w|k|m|美元|usd|\$|元)', text_lower)
+        if funding_match:
+            val = float(funding_match.group(1).replace(",", ""))
+            unit = funding_match.group(2)
+            goal_usd = val * (10000 if unit in ("万", "w") else 1000 if unit in ("k",) else 1000000 if unit in ("m",) else 1)
         else:
-            goal_usd = val
+            # 尝试提取通用金额（带单位）
+            money_match = re.search(r'(\d[\d,]*(?:\.\d+)?)\s*(万|w|k|m|美元|usd|\$|元)', text_lower)
+            if money_match:
+                val = float(money_match.group(1).replace(",", ""))
+                unit = money_match.group(2)
+                if unit in ("万", "w"):
+                    goal_usd = val * 10000
+                elif unit in ("k",):
+                    goal_usd = val * 1000
+                elif unit in ("m",):
+                    goal_usd = val * 1000000
+                else:
+                    goal_usd = val
+
+    # 提取"已筹集: XXXX"或类似表述（投了/融了/已融/已筹）
+    pledged_match = re.search(r'(?:已筹[集]?|已融|投了|friend[：:])\s*[：:]?\s*(\d[\d,]*(?:\.\d+)?)\s*(万|w|k|m|美元|usd|\$|元)', text_lower)
+    if pledged_match:
+        val = float(pledged_match.group(1).replace(",", ""))
+        unit = pledged_match.group(2)
+        pledged_usd = val * (10000 if unit in ("万", "w") else 1000 if unit in ("k",) else 1)
 
     # 推断品类
     main_category = "Technology"
@@ -290,14 +334,27 @@ def _infer_project_data_from_text(text: str) -> Dict[str, Any]:
             category_risk = risk
             break
 
-    # 推断国家
+    # 推断国家（优先匹配完整国家名/城市名，再匹配 country code）
     country = "US"
     country_factor = 0.3
-    for c, f in COUNTRY_FACTOR_MAP.items():
-        if c in text_lower:
-            country = c.upper()
-            country_factor = f
+    city_country_map = {
+        "北京": "cn", "上海": "cn", "深圳": "cn", "广州": "cn", "杭州": "cn",
+        "纽约": "us", "san francisco": "us", "silicon valley": "us",
+        "伦敦": "gb", "london": "gb", "柏林": "de", "berlin": "de",
+        "东京": "jp", "tokyo": "jp",
+    }
+    for city, cc in city_country_map.items():
+        if city in text_lower:
+            country = cc.upper()
+            country_factor = COUNTRY_FACTOR_MAP.get(cc, 0.5)
             break
+    else:
+        # 用单词边界匹配 country code，避免 "base"→"se" 这种误匹配
+        for c, f in COUNTRY_FACTOR_MAP.items():
+            if re.search(r'\b' + re.escape(c) + r'\b', text_lower):
+                country = c.upper()
+                country_factor = f
+                break
 
     # 推断周期
     duration_days = 60
@@ -312,7 +369,7 @@ def _infer_project_data_from_text(text: str) -> Dict[str, Any]:
         else:
             duration_days = val
 
-    goal_ratio = round(goal_usd / 5000, 4)
+    goal_ratio = round(goal_usd / max(pledged_usd, 5000), 4) if pledged_usd > 0 else round(goal_usd / 5000, 4)
     time_penalty = round(max(0, (60 - duration_days) / 30.0), 4) if duration_days < 60 else 0.0
 
     # 用 M8 文本风险分析辅助
@@ -322,10 +379,20 @@ def _infer_project_data_from_text(text: str) -> Dict[str, Any]:
     except Exception:
         risk_bonus = 0.0
 
-    combined_risk = round(goal_ratio * 0.36 + time_penalty * 0.30 + category_risk * 0.19 + country_factor * 0.09 + 0.3 * 0.05 + risk_bonus, 4)
+    # 提取支持者数量
+    backers_count = 0
+    backers_match = re.search(r'支持者[：:]\s*(\d+)', text)
+    if backers_match:
+        backers_count = int(backers_match.group(1))
+
+    urgency_score = round(max(0, 1.0 - min(1.0, backers_count / max(500, 1))) * 0.3, 4)
+    combined_risk = round(goal_ratio * 0.36 + time_penalty * 0.30 + category_risk * 0.19 + country_factor * 0.09 + urgency_score * 0.05 + risk_bonus, 4)
 
     return {
         "goal_usd": goal_usd,
+        "pledged_usd": pledged_usd,
+        "actual_funding_usd": pledged_usd,
+        "backers_count": backers_count,
         "duration_days": duration_days,
         "main_category": main_category,
         "country": country,
@@ -354,6 +421,7 @@ def run_analysis_pipeline(
     enable_m5: bool = False,
     enable_mas_blackboard: bool = True,
     enable_blender: bool = True,
+    enable_m15: bool = False,
     user_id: str = "web_user",
 ) -> Dict[str, Any]:
     """
@@ -604,6 +672,9 @@ def run_analysis_pipeline(
                 _l = _logging.getLogger(_ln)
                 _l.handlers.clear()
                 _l.propagate = False
+            # 调试：打印 env var 实际值
+            sm_val = os.environ.get("USE_REAL_SMALL_MODEL", "NOT_SET")
+            print(f"[M15-DEBUG] 即将创建 AdaptiveTieredWorkflow, USE_REAL_SMALL_MODEL={sm_val}")
             AdaptiveTieredWorkflow, _ = _import_mas_blackboard()
             workflow = AdaptiveTieredWorkflow()
             bb_result = workflow.run(user_input=user_query)
@@ -634,6 +705,24 @@ def run_analysis_pipeline(
             results["modules"]["M5_自动化测试"] = report.to_dict()
         except Exception as e:
             results["modules"]["M5_自动化测试"] = {"error": str(e)}
+
+    # ========== Step 11: M15 消融实验 ==========
+    st.session_state.pipeline_step = "M15 消融实验"
+    if enable_m15:
+        try:
+            run_ablation_experiments = _import_m15()
+            m15_result = run_ablation_experiments(
+                project_data=project_data,
+                user_query=user_query,
+                api_key=api_key,
+                enable_blender=enable_blender,
+                user_id=user_id,
+                m8_result=results["modules"].get("M8_风险判定"),
+                m7_result=results["modules"].get("M7_专家路由"),
+            )
+            results["modules"]["M15_消融实验"] = m15_result
+        except Exception as e:
+            results["modules"]["M15_消融实验"] = {"error": str(e)}
 
     # ========== 生成最终总结 ==========
     results["final_summary"] = _build_final_summary(results)
@@ -712,6 +801,57 @@ def _init_session_state():
             st.session_state[key] = val
 
 
+def _render_backend_status(api_key: str):
+    """渲染后端状态面板"""
+    st.divider()
+    st.subheader("🔌 后端状态")
+
+    # 1) 大模型 API (DeepSeek)
+    if api_key and len(api_key) > 10:
+        st.success("✅ DeepSeek API: 已配置")
+    elif api_key:
+        st.warning("⚠️ DeepSeek API: 密钥太短，可能无效")
+    else:
+        st.info("💡 DeepSeek API: 未配置，将使用规则模式")
+
+    # 2) 小模型 (Qwen3-1.7B)
+    use_real_model = os.environ.get("USE_REAL_SMALL_MODEL", "false").lower() == "true"
+
+    # 检查依赖包
+    deps_ok = False
+    missing_deps = []
+    for mod_name in ["torch", "transformers", "peft"]:
+        try:
+            __import__(mod_name)
+        except ImportError:
+            missing_deps.append(mod_name)
+    deps_ok = len(missing_deps) == 0
+
+    try:
+        from model_asset_manager import inspect_small_model_assets
+        sm_status = inspect_small_model_assets()
+        files_ready = sm_status.get("ready", False)
+
+        if use_real_model:
+            if not deps_ok:
+                st.error(f"❌ 小模型: 缺少依赖包 {', '.join(missing_deps)}，无法加载")
+            elif files_ready:
+                st.success("✅ 小模型 Qwen3-1.7B: 已启用（文件就绪 + 依赖完整）")
+            else:
+                st.warning("⚠️ 小模型 Qwen3-1.7B: 已启用但文件缺失（将回退规则引擎）")
+        else:
+            if files_ready and deps_ok:
+                st.info("💡 小模型 Qwen3-1.7B: 文件就绪，但未启用。请勾选侧边栏「小模型推理模式」")
+            elif files_ready and not deps_ok:
+                st.warning(f"⚠️ 小模型文件就绪，但缺少依赖包: {', '.join(missing_deps)}")
+            else:
+                missing = sm_status.get("missing", [])
+                deps_info = f" + 缺少依赖包: {', '.join(missing_deps)}" if not deps_ok else ""
+                st.info(f"💡 小模型 Qwen3-1.7B: 未就绪（{len(missing)} 项文件缺失{deps_info}）")
+    except Exception:
+        st.info("💡 小模型检查: 模块不可用")
+
+
 def _render_sidebar() -> Dict[str, Any]:
     """渲染侧边栏，返回配置"""
     with st.sidebar:
@@ -733,6 +873,17 @@ def _render_sidebar() -> Dict[str, Any]:
         enable_m5 = st.checkbox("M5 自动化测试", value=False, help="运行批量测试套件")
         enable_mas_blackboard = st.checkbox("MAS 黑板架构", value=True, help="多Agent黑板协作路由")
         enable_blender = st.checkbox("M7 Blender融合", value=True, help="PairRanker+GenFuser多专家融合")
+        enable_m15 = st.checkbox("M15 消融实验", value=False, help="启动消融实验：对比路由策略/LLM推理/组件完整度对结果的影响")
+
+        st.divider()
+        st.subheader("推理模式")
+
+        use_small_model = st.checkbox(
+            "小模型推理模式",
+            value=os.environ.get("USE_REAL_SMALL_MODEL", "false").lower() == "true",
+            help="勾选后尝试加载 Qwen3-1.7B + LoRA 进行复杂度分类；失败时自动回退规则引擎。",
+        )
+        os.environ["USE_REAL_SMALL_MODEL"] = "true" if use_small_model else "false"
 
         st.divider()
         st.subheader("数据集工具")
@@ -774,8 +925,15 @@ def _render_sidebar() -> Dict[str, Any]:
         st.divider()
         st.subheader("关于")
         st.caption("项目评估与AI路由系统 v2.0")
-        st.caption("整合 M2→M4→M8→M7→M9→M10→M12→M16 全模块")
+        st.caption("整合 M2→M4→M8→M7→M9→M10→M12→M15→M16 全模块")
         st.caption("支持文字输入和数据文件分析")
+
+        # 后端状态检查
+        _render_backend_status(api_key)
+
+        # 调试：显示当前 env var 实际值
+        debug_sm = os.environ.get("USE_REAL_SMALL_MODEL", "未设置")
+        st.caption(f"DEBUG: USE_REAL_SMALL_MODEL={debug_sm}")
 
     return {
         "api_key": api_key,
@@ -785,6 +943,7 @@ def _render_sidebar() -> Dict[str, Any]:
         "enable_m5": enable_m5,
         "enable_mas_blackboard": enable_mas_blackboard,
         "enable_blender": enable_blender,
+        "enable_m15": enable_m15,
     }
 
 
@@ -973,6 +1132,61 @@ def _render_module_detail(module_name: str, data: Any):
             st.markdown(f"**融合方法:** {fused.get('fusion_method', 'unknown')}")
             st.markdown(f"**融合置信度:** {fused.get('fusion_confidence', 0)}")
 
+        # 特殊处理：M15 消融实验
+        if module_name == "M15_消融实验" and isinstance(data, dict):
+            if "error" in data:
+                st.error(f"M15 消融实验执行异常: {data['error']}")
+            elif "summary_text" in data:
+                st.markdown("### 📊 消融实验结果概览")
+                st.markdown(data["summary_text"])
+
+                reports = data.get("reports", {})
+                if reports:
+                    dim_tabs = st.tabs(list(reports.keys()))
+                    dim_labels = {
+                        "routing_strategy": "路由策略",
+                        "llm_reasoning": "LLM 推理",
+                        "component_integrity": "组件完整度",
+                    }
+                    for tab, (dim_key, report) in zip(dim_tabs, reports.items()):
+                        with tab:
+                            dim_cn = dim_labels.get(dim_key, dim_key)
+                            st.subheader(f"🧪 {dim_cn}")
+
+                            cs = report.get("comparison_summary", {})
+                            findings = cs.get("key_finding", "")
+                            if findings:
+                                st.info(f"**关键发现:** {findings}")
+
+                            comparisons = cs.get("comparisons", [])
+                            if comparisons:
+                                # 表格显示
+                                table_data = []
+                                for c in comparisons:
+                                    row = {
+                                        "条件": c.get("label", ""),
+                                        "置信度": c.get("confidence", 0),
+                                        "置信度变化": c.get("confidence_diff", 0),
+                                        "耗时(ms)": c.get("execution_time_ms", 0),
+                                        "专家数": c.get("expert_count", 0),
+                                        "Action数": c.get("action_count", 0),
+                                    }
+                                    if "m8_risk_score" in c:
+                                        row["风险分值"] = c.get("m8_risk_score", 0)
+                                    table_data.append(row)
+                                st.table(table_data)
+
+                            # 对比详情
+                            for c in comparisons:
+                                label = c.get("label", "")
+                                experts = c.get("selected_experts", [])
+                                error = c.get("error", "")
+                                with st.expander(f"📌 {label}", expanded=False):
+                                    if experts:
+                                        st.markdown(f"**选中专家:** {', '.join(experts)}")
+                                    if error:
+                                        st.error(f"执行错误: {error}")
+
         # 通用JSON展示
         with st.expander("原始JSON", expanded=False):
             st.json(_safe_serialize(data), expanded=False)
@@ -1095,6 +1309,7 @@ def main():
                         enable_m5=config["enable_m5"],
                         enable_mas_blackboard=config["enable_mas_blackboard"],
                         enable_blender=config["enable_blender"],
+                        enable_m15=config["enable_m15"],
                     )
                     all_results.append(result)
 
@@ -1127,6 +1342,7 @@ def main():
                             enable_m5=False,  # 批量不跑M5
                             enable_mas_blackboard=config["enable_mas_blackboard"],
                             enable_blender=config["enable_blender"],
+                            enable_m15=config["enable_m15"],
                             user_id=f"file_row_{idx}",
                         )
                         all_results.append(result)
