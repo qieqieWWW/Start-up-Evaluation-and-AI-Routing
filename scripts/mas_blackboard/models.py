@@ -111,6 +111,8 @@ class BlackboardState(BaseModel):
             "finance_zone": ZoneState(zone_name="finance_zone"),
             "debate_zone": ZoneState(zone_name="debate_zone"),
             "general_zone": ZoneState(zone_name="general_zone"),
+            "m8_risk": ZoneState(zone_name="m8_risk"),
+            "m11_routing": ZoneState(zone_name="m11_routing"),
         }
     )
     audit_log: List[AuditRecord] = Field(default_factory=list)

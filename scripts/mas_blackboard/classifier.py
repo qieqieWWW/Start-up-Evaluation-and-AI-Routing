@@ -8,6 +8,7 @@ import re
 from typing import Any, Dict, List
 
 from .models import RoutingDecision
+from prompts.loader import load_prompt_template
 
 
 @dataclass
@@ -330,17 +331,8 @@ class ComplexityClassifier:
             try:
                 import torch
 
-                prompt = (
-                    "<|im_start|>system\n"
-                    "你是一个创业项目路由决策器。\n"
-                    "你必须只输出一个 JSON 对象，不要输出任何解释文本或 Markdown。\n"
-                    "不要输出 <think> 标签或任何思维链内容。\n"
-                    "JSON 必须包含字段: tier, sub_type, suggested_agents, parallelism, confidence_score, reason。\n"
-                    "tier 只能是 L1/L2/L3；suggested_agents 只能包含 general_agent/legal_agent/finance_agent/tech_agent。\n"
-                    "confidence_score 范围是 0~1。\n"
-                    "<|im_end|>\n"
-                    f"<|im_start|>user\n{user_input}<|im_end|>\n"
-                    "<|im_start|>assistant\n"
+                prompt = load_prompt_template("classifier/small_model_prompt.json").format(
+                    user_input=user_input,
                 )
 
                 model_device = next(self.model.parameters()).device

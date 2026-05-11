@@ -3,89 +3,113 @@ import json
 import os
 from pathlib import Path
 
+from prompts.loader import load_prompts_from_dir
 
-DEFAULT_EXPERT_POOL: List[Dict[str, str]] = [
-	{
-		"name": "risk_guardian",
-		"role": "风控专家",
-		"risk_focus": "extreme_high,high,medium",
-		"system_prompt": "你是风控专家。请识别核心风险、按严重级别排序，并给出可执行缓释动作。",
-	},
-	{
-		"name": "finance_advisor",
-		"role": "财务专家",
-		"risk_focus": "high,medium,low",
-		"system_prompt": "你是财务专家。请评估预算可行性、融资节奏与现金流安全边界。",
-	},
-	{
-		"name": "growth_strategist",
-		"role": "增长专家",
-		"risk_focus": "medium,low",
-		"system_prompt": "你是增长专家。请给出转化率提升、渠道优先级与实验计划。",
-	},
-	{
-		"name": "ops_executor",
-		"role": "运营专家",
-		"risk_focus": "medium,low",
-		"system_prompt": "你是运营专家。请给出落地排期、资源分配与里程碑检查点。",
-	},
-]
+
+# Default expert pool loaded from prompts/experts/ directory
+_DEFAULT_EXPERT_POOL: Optional[List[Dict[str, str]]] = None
+
+
+def _get_default_pool() -> List[Dict[str, str]]:
+    """Lazy-load expert pool from prompts/experts/ directory."""
+    global _DEFAULT_EXPERT_POOL
+    if _DEFAULT_EXPERT_POOL is None:
+        pool: List[Dict[str, str]] = []
+        by_name = load_prompts_from_dir("experts", key_by="stem")
+        for name in sorted(by_name.keys()):
+            data = by_name[name]
+            meta = data.get("metadata", {})
+            pool.append({
+                "name": meta.get("name", name),
+                "role": meta.get("role", "专家"),
+                "risk_focus": meta.get("risk_focus", ""),
+                "system_prompt": data.get("system_prompt", ""),
+            })
+        _DEFAULT_EXPERT_POOL = pool
+    return _DEFAULT_EXPERT_POOL
 
 
 # Module-level cache for loaded experts
 _CACHED_EXPERTS: Optional[List[Dict[str, str]]] = None
 
 
-def _default_config_path() -> Path:
-	# project root is parent.parent.parent of this file (scripts/m7/...)
-	project_root = Path(__file__).resolve().parent.parent.parent
-	return project_root / "config" / "m7_experts.json"
+def _default_config_paths() -> list:
+    """Return list of config paths in priority order."""
+    project_root = Path(__file__).resolve().parent.parent.parent
+    return [
+        project_root / "config" / "m7_experts.json",   # legacy path (fallback)
+    ]
 
 
 def load_expert_pool(config_path: Optional[str] = None) -> List[Dict[str, str]]:
-	"""Load expert pool from JSON config file.
+    """Load expert pool from prompts/experts/ or JSON config file.
 
-	Priority: explicit config_path arg > M7_EXPERTS_PATH env var > config/m7_experts.json > built-in default
-	"""
-	# Resolve candidate path
-	path = None
-	if config_path:
-		path = Path(config_path)
-	elif os.getenv("M7_EXPERTS_PATH"):
-		path = Path(os.getenv("M7_EXPERTS_PATH"))
-	else:
-		path = _default_config_path()
+    Priority:
+        1. prompts/experts/ directory (new, primary)
+        2. explicit config_path arg (legacy)
+        3. M7_EXPERTS_PATH env var (legacy)
+        4. config/m7_experts.json (legacy fallback)
+        5. built-in default from prompts/experts/
+    """
+    # 1. Try prompts/experts/ directory first (new approach)
+    try:
+        from prompts.loader import load_prompts_from_dir
+        by_name = load_prompts_from_dir("experts", key_by="stem")
+        if by_name:
+            validated: List[Dict[str, str]] = []
+            for name in sorted(by_name.keys()):
+                data = by_name[name]
+                meta = data.get("metadata", {})
+                sp = data.get("system_prompt", "")
+                if name and sp:
+                    validated.append({
+                        "name": meta.get("name", name),
+                        "role": meta.get("role", "专家"),
+                        "risk_focus": meta.get("risk_focus", ""),
+                        "system_prompt": sp,
+                    })
+            if validated:
+                return validated
+    except Exception:
+        pass
 
-	if path and path.exists():
-		try:
-			with path.open("r", encoding="utf-8") as fh:
-				data = json.load(fh)
-			if isinstance(data, list):
-				# basic validation
-				validated: List[Dict[str, str]] = []
-				for item in data:
-					if not isinstance(item, dict):
-						continue
-					name = item.get("name")
-					role = item.get("role")
-					system_prompt = item.get("system_prompt")
-					risk_focus = item.get("risk_focus", "")
-					if name and role and system_prompt:
-						validated.append(
-							{
-								"name": name,
-								"role": role,
-								"system_prompt": system_prompt,
-								"risk_focus": risk_focus,
-							}
-						)
-				if validated:
-					return validated
-		except Exception:
-			# fall through to default
-			pass
+    # 2-4. Legacy paths (config file)
+    paths: list = []
+    if config_path:
+        paths.append(Path(config_path))
+    elif os.getenv("M7_EXPERTS_PATH"):
+        paths.append(Path(os.getenv("M7_EXPERTS_PATH")))
+    else:
+        paths = _default_config_paths()
 
-	return DEFAULT_EXPERT_POOL
+    for path in paths:
+        if path and path.exists():
+            try:
+                with path.open("r", encoding="utf-8") as fh:
+                    data = json.load(fh)
+                if isinstance(data, list):
+                    validated = []
+                    for item in data:
+                        if not isinstance(item, dict):
+                            continue
+                        name = item.get("name")
+                        role = item.get("role")
+                        system_prompt = item.get("system_prompt")
+                        risk_focus = item.get("risk_focus", "")
+                        if name and role and system_prompt:
+                            validated.append({
+                                "name": name,
+                                "role": role,
+                                "system_prompt": system_prompt,
+                                "risk_focus": risk_focus,
+                            })
+                    if validated:
+                        return validated
+            except Exception:
+                pass
+
+    # 5. Ultimate fallback
+    return _get_default_pool()
 
 
 def get_expert_map(config_path: Optional[str] = None) -> Dict[str, Dict[str, str]]:

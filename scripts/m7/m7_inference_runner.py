@@ -21,6 +21,16 @@ from m7_profile_rag import append_profile_record, infer_risk_appetite_from_text
 from m7_prompt_builder import build_system_prompt, build_user_prompt
 from m7_search_arbiter import SearchArbiter, SearchDecision
 from m7_web_retriever import WebRetriever
+from prompts.loader import load_prompt_dict
+
+# Lazy-loaded cache for enhancement block templates
+_ENHANCEMENT_BLOCKS = None
+
+def _get_enhancement_blocks() -> dict:
+    global _ENHANCEMENT_BLOCKS
+    if _ENHANCEMENT_BLOCKS is None:
+        _ENHANCEMENT_BLOCKS = load_prompt_dict("m7/search_enhancements.json")["blocks"]
+    return _ENHANCEMENT_BLOCKS
 
 logger = logging.getLogger("m7_inference_runner")
 
@@ -338,11 +348,11 @@ def _build_evidence_bound_output(
 
 
 def run_expert_llm_inference(
-    risk_level: str,
-    reasons: List[str],
-    intermediate: Dict[str, float],
-    project_data: Dict[str, object],
-    route_result: Dict[str, Any],
+    risk_level: str = "",
+    reasons: Optional[List[str]] = None,
+    intermediate: Optional[Dict[str, float]] = None,
+    project_data: Optional[Dict[str, object]] = None,
+    route_result: Optional[Dict[str, Any]] = None,
     user_input: str = "",
     uploaded_snippets: Optional[List[Dict[str, str]]] = None,
     conversation_turns: Optional[List[Dict[str, str]]] = None,
@@ -357,7 +367,27 @@ def run_expert_llm_inference(
     auto_profile_log: bool = True,
     top_k: int = 1,
     model: str = "deepseek-chat",
+    blackboard: Optional[Any] = None,
 ) -> List[Dict[str, Any]]:
+    # ── 从 Blackboard 读取缺失的上下文（当直接参数未提供时） ──
+    if (not risk_level or not reasons or not route_result) and blackboard is not None:
+        try:
+            m8_entries = blackboard.read(zone="m8_risk", agent_id="m7_inference")
+            if m8_entries and not risk_level:
+                c = m8_entries[-1].content
+                risk_level = c.get("risk_level", risk_level)
+                reasons = c.get("risk_reasons", reasons)
+                intermediate = c.get("intermediate", intermediate)
+            route_entries = blackboard.read(zone="m11_routing", agent_id="m7_inference")
+            if route_entries and not route_result:
+                route_result = route_entries[-1].content
+        except Exception:
+            pass
+
+    reasons = reasons or []
+    intermediate = intermediate or {}
+    route_result = route_result or {"selected_experts": []}
+
     selected_experts = route_result.get("selected_experts", [])
     if not selected_experts:
         return []
@@ -524,15 +554,31 @@ def run_expert_llm_inference(
         }
         append_profile_record(record=record, db_path=profile_db_path)
 
+    # ── 推理结果写回 Blackboard ──
+    if blackboard is not None and outputs:
+        try:
+            blackboard.write(
+                zone="m7_results",
+                content={
+                    "outputs": outputs,
+                    "risk_level": risk_level,
+                    "selected_experts": [str(item.get("expert", {}).get("name", "")) for item in outputs],
+                },
+                tags=["m7", "llm"],
+                agent_id="m7_inference",
+            )
+        except Exception:
+            pass
+
     return outputs
 
 
 def run_expert_llm_inference_with_blender(
-    risk_level: str,
-    reasons: List[str],
-    intermediate: Dict[str, float],
-    project_data: Dict[str, object],
-    route_result: Dict[str, Any],
+    risk_level: str = "",
+    reasons: Optional[List[str]] = None,
+    intermediate: Optional[Dict[str, float]] = None,
+    project_data: Optional[Dict[str, object]] = None,
+    route_result: Optional[Dict[str, Any]] = None,
     user_input: str = "",
     uploaded_snippets: Optional[List[Dict[str, str]]] = None,
     conversation_turns: Optional[List[Dict[str, str]]] = None,
@@ -548,6 +594,7 @@ def run_expert_llm_inference_with_blender(
     top_k: int = 2,
     model: str = "deepseek-chat",
     use_llm_fuser: bool = True,
+    blackboard: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """Run expert inference then blend outputs via PairRanker + GenFuser."""
     search_decision: Optional[SearchDecision] = None
@@ -573,6 +620,7 @@ def run_expert_llm_inference_with_blender(
         auto_profile_log=auto_profile_log,
         top_k=top_k,
         model=model,
+        blackboard=blackboard,
     )
 
     blended = blend_candidates(
@@ -744,6 +792,8 @@ def _enhance_prompts_for_search(
     Returns:
         (enhanced_system_prompt, enhanced_user_prompt)
     """
+    blocks = _get_enhancement_blocks()
+
     if not search_decision or not search_decision.should_search:
         # 即使没有搜索决策，如果有 KG 上下文也要注入
         if kg_context or kg_similar_project_context:
@@ -752,29 +802,15 @@ def _enhance_prompts_for_search(
 
     # ── L1: System Prompt 注入联网搜索指引 ──
     if search_decision.agent_search_hint:
-        search_block = (
-            "\n\n"
-            "╔" + "═" * 48 + "╗\n"
-            "║ 【互联网检索指引 — 请务必执行】                                    ║\n"
-            "╚" + "═" * 48 + "╝\n\n"
-            f"{search_decision.agent_search_hint}\n\n"
-            "╔" + "═" * 48 + "╗\n"
-            "║ 【指引结束】                                                        ║\n"
-            "╚" + "═" * 48 + "╝"
+        search_block = blocks["search_guide"]["template"].format(
+            content=search_decision.agent_search_hint,
         )
         system_prompt = system_prompt + search_block
 
     # ── L2: User Prompt 注入结构化网络证据 ──
     if local_evidence_context:
-        evidence_block = (
-            "\n\n"
-            "╔" + "═" * 50 + "╗\n"
-            "║ 【互联网实时参考资料 — 回答时必须与以下信息保持一致】              ║\n"
-            "╚" + "═" * 50 + "╝\n\n"
-            f"{local_evidence_context}\n"
-            "╔" + "═" * 50 + "╗\n"
-            "║ 【参考资料结束】                                                    ║\n"
-            "╚" + "═" * 50 + "╝"
+        evidence_block = blocks["evidence_ref"]["template"].format(
+            content=local_evidence_context,
         )
         user_prompt = user_prompt + evidence_block
 
@@ -805,33 +841,18 @@ def _inject_kg_to_user_prompt(
     kg_similar_project_context: str,
 ) -> str:
     """将知识图谱上下文块注入 User Prompt。"""
+    blocks = _get_enhancement_blocks()
     parts = []
 
     if kg_context:
-        kg_block = (
-            "\n\n"
-            "╔" + "═" * 56 + "╗\n"
-            "║ 【知识图谱因果规律 — 历史数据驱动的风险关联】                        ║\n"
-            "╚" + "═" * 56 + "╝\n\n"
-            f"{kg_context}\n"
-            "╔" + "═" * 56 + "╗\n"
-            "║ 【因果规律参考结束】                                                  ║\n"
-            "╚" + "═" * 56 + "╝"
-        )
-        parts.append(kg_block)
+        parts.append(blocks["kg_causal"]["template"].format(
+            content=kg_context,
+        ))
 
     if kg_similar_project_context:
-        sim_block = (
-            "\n\n"
-            "╔" + "═" * 54 + "╗\n"
-            "║ 【相似历史项目风险参照 — 来自知识图谱同类案例】                      ║\n"
-            "╚" + "═" * 54 + "╝\n\n"
-            f"{kg_similar_project_context}\n"
-            "╔" + "═" * 54 + "╗\n"
-            "║ 【相似案例参考结束】                                                  ║\n"
-            "╚" + "═" * 54 + "╝"
-        )
-        parts.append(sim_block)
+        parts.append(blocks["kg_similar_projects"]["template"].format(
+            content=kg_similar_project_context,
+        ))
 
     if parts:
         user_prompt = user_prompt + "".join(parts)

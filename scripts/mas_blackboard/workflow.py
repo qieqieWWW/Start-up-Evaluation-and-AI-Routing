@@ -23,8 +23,9 @@ class AdaptiveTieredWorkflow:
     shared blackboard, enabling decentralized agent collaboration.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, blackboard: Optional[SharedBlackboard] = None) -> None:
         self.classifier = ComplexityClassifier()
+        self.external_bb = blackboard
         self.agents = {
             "general_agent": GeneralAgent(),
             "legal_agent": LegalAgent(),
@@ -34,9 +35,12 @@ class AdaptiveTieredWorkflow:
 
     def run(self, user_input: str, session_id: str | None = None) -> WorkflowResult:
         decision = self.classifier.classify(user_input)
-        bb = SharedBlackboard(
-            BlackboardState(session_id=session_id) if session_id else BlackboardState()
-        )
+        if self.external_bb is not None:
+            bb = self.external_bb
+        else:
+            bb = SharedBlackboard(
+                BlackboardState(session_id=session_id) if session_id else BlackboardState()
+            )
 
         bb.subscribe("critical_risk", self._on_critical_risk, agent_id="workflow")
         bb.update_global_state(

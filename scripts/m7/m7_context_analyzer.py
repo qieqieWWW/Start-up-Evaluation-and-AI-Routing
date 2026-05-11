@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from prompts.loader import load_prompt_dict
+
 # 动态添加 m7 目录到 sys.path
 _m7_dir = Path(__file__).parent
 if str(_m7_dir) not in sys.path:
@@ -33,11 +35,9 @@ def build_layer1_context(
 
 def render_layer1_for_prompt(layer1_context: Dict[str, Any]) -> str:
     """Render layer-1 context for direct prompt embedding."""
-    return (
-        "\n\n[上下文窗口-L1 直接输入层]\n"
-        "以下内容来自用户直接输入及上传片段，必须优先响应其当下问题。"
-        "禁止改写、禁止省略、禁止二次加工。\n"
-        f"{json.dumps(layer1_context, ensure_ascii=False)}"
+    layers = load_prompt_dict("m7/context_layers.json")["layers"]
+    return layers["L1"]["template"].format(
+        layer_context=json.dumps(layer1_context, ensure_ascii=False),
     )
 
 
@@ -89,10 +89,9 @@ def build_layer2_context(
 
 def render_layer2_for_prompt(layer2_context: Dict[str, Any]) -> str:
     """Render layer-2 context for prompt embedding."""
-    return (
-        "\n\n[上下文窗口-L2 会话上下文层]\n"
-        "以下内容用于保持多轮会话连贯与指代消解，回答时需结合该上下文。\n"
-        f"{json.dumps(layer2_context, ensure_ascii=False)}"
+    layers = load_prompt_dict("m7/context_layers.json")["layers"]
+    return layers["L2"]["template"].format(
+        layer_context=json.dumps(layer2_context, ensure_ascii=False),
     )
 
 
@@ -124,10 +123,9 @@ def build_layer3_context(
 
 def render_layer3_for_prompt(layer3_context: Dict[str, Any]) -> str:
     """Render layer-3 user profile context for prompt embedding."""
-    return (
-        "\n\n[上下文窗口-L3 用户历史画像层]\n"
-        "以下内容来自用户历史记录与偏好检索结果，用于个性化路由与建议。\n"
-        f"{json.dumps(layer3_context, ensure_ascii=False)}"
+    layers = load_prompt_dict("m7/context_layers.json")["layers"]
+    return layers["L3"]["template"].format(
+        layer_context=json.dumps(layer3_context, ensure_ascii=False),
     )
 
 
@@ -167,8 +165,7 @@ def build_layer4_context(
 
 def render_layer4_for_prompt(layer4_context: Dict[str, Any]) -> str:
     """Render layer-4 global knowledge grounding context for prompt embedding."""
-    return (
-        "\n\n[上下文窗口-L4 全局知识库层]\n"
-        "以下内容是行业标准、风险模型定义和历史成功案例，用于专业基准与Grounding。\n"
-        f"{json.dumps(layer4_context, ensure_ascii=False)}"
+    layers = load_prompt_dict("m7/context_layers.json")["layers"]
+    return layers["L4"]["template"].format(
+        layer_context=json.dumps(layer4_context, ensure_ascii=False),
     )

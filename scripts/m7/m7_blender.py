@@ -10,6 +10,7 @@ if str(_m7_dir) not in sys.path:
     sys.path.insert(0, str(_m7_dir))
 
 from m7_llm_client import make_llm_client
+from prompts.loader import load_prompt, load_prompt_dict
 
 
 def _candidate_quality_score(candidate: Dict[str, Any]) -> float:
@@ -188,19 +189,12 @@ def _llm_fuse_if_available(
             }
         )
 
-    system_prompt = (
-        "你是GenFuser。请将多个专家候选建议融合为一个统一JSON。"
-        "必须只输出JSON对象，字段为："
-        "fused_risk_summary, fused_actions, fused_alerts, source_experts, fusion_method, fusion_confidence。"
-    )
+    blender_cfg = load_prompt_dict("m7/blender.json")
+    system_prompt = blender_cfg["system_prompt"]
     user_prompt = json.dumps(
         {
             "ranked_candidates": payload,
-            "constraints": {
-                "fused_actions_min": 3,
-                "fused_alerts_min": 1,
-                "language": "zh-cn",
-            },
+            "constraints": blender_cfg.get("user_constraints", {}),
         },
         ensure_ascii=False,
     )

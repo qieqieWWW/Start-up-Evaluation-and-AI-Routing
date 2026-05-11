@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 from m7_freshness_detector import FreshnessDetector, FreshnessResult
+from prompts.loader import load_prompt_dict
 
 logger = logging.getLogger("m7_search_arbiter")
 
@@ -306,6 +307,15 @@ class SearchArbiter:
 
     # ════════════ Hint 生成策略（核心：Prompt 即控制） ════════════
 
+    _SEARCH_HINTS_CACHE = None
+
+    @classmethod
+    def _get_hints(cls, hint_type: str) -> dict:
+        """Lazy-load search hints from JSON file."""
+        if cls._SEARCH_HINTS_CACHE is None:
+            cls._SEARCH_HINTS_CACHE = load_prompt_dict("m7/search_hints.json")["hints"]
+        return cls._SEARCH_HINTS_CACHE.get(hint_type, {})
+
     @staticmethod
     def _build_deep_task_hint(
         user_input: str,
@@ -314,18 +324,19 @@ class SearchArbiter:
         freshness: FreshnessResult,
     ) -> str:
         """生成深度任务型搜索引导 — 注入 LLM 的 System Prompt"""
+        hints = SearchArbiter._get_hints("deep_task")
         parts: List[str] = []
 
         # 1. 核心领域搜索指引
         if domain_context:
-            parts.append(f"请主动联网搜索「{domain_context}」领域的最新数据、政策法规和市场动态。")
+            parts.append(hints["domain_fragment"].format(domain_context=domain_context))
         else:
-            parts.append("请主动联网查询与用户问题相关的最新行业数据和权威资料。")
+            parts.append(hints["domain_fallback"])
 
         # 2. 时效性实体特别提醒
         if freshness.extracted_entities:
             entity_list = "、".join(freshness.extracted_entities[:4])
-            parts.append(f"特别注意核实以下信息的最新状态: {entity_list}")
+            parts.append(hints["entity_fragment"].format(entity_list=entity_list))
 
         # 3. 时间范围指引
         time_range = freshness.suggested_time_range
@@ -337,51 +348,59 @@ class SearchArbiter:
                 "past_year": "最近一年内",
             }
             range_desc = range_map.get(time_range, "近期")
-            parts.append(f"搜索时重点关注{range_desc}的信息。")
+            parts.append(hints["time_range_fragment"].format(time_range_desc=range_desc))
 
         # 4. 来源可信度要求
-        parts.append("优先引用官方来源、权威媒体或学术研究资料。")
+        parts.append(hints["source_credibility"])
 
         # 5. 输出格式要求
-        parts.append("请在回答中对所有来自网络的信息标注 [来源: xxx]，以便追溯验证。")
-        parts.append("如果网络信息与通用知识矛盾，以网络最新信息为准并注明差异。")
+        parts.append(hints["format_requirement"])
+        parts.append(hints["conflict_rule"])
 
         return "\n".join(parts)
 
     @staticmethod
     def _build_basic_task_hint(domain_context: str, freshness: FreshnessResult) -> str:
         """生成基础任务型搜索指引"""
-        parts = ["请联网查询与当前评估任务相关的最新参考数据。"]
+        hints = SearchArbiter._get_hints("basic_task")
         if domain_context:
-            parts[0] = f"请联网查询「{domain_context}」领域的最新参考数据。"
+            parts = [hints["domain_template"].format(domain_context=domain_context)]
+        else:
+            parts = [hints["fallback"]]
         if freshness.extracted_entities:
-            parts.append(f"如涉及 {', '.join(freshness.extracted_entities[:3])} 等信息请确认其最新状态。")
-        parts.append("对网络获取的信息标注来源。")
+            entity_list = "、".join(freshness.extracted_entities[:3])
+            parts.append(hints["entity_fragment"].format(entity_list=entity_list))
+        parts.append(hints["source_tagging"])
         return "\n".join(parts)
 
     @staticmethod
     def _build_factual_chat_hint(user_input: str, freshness: FreshnessResult) -> str:
         """生成事实型闲聊搜索指引"""
-        parts = ["用户的问题涉及到可能随时间变化的事实信息，请联网核实后回答。"]
+        hints = SearchArbiter._get_hints("factual_chat")
+        parts = [hints["opener"]]
         if freshness.extracted_entities:
-            parts.append(f"需核实的关键信息: {'、'.join(freshness.extracted_entities[:3])}")
+            entity_list = "、".join(freshness.extracted_entities[:3])
+            parts.append(hints["entity_fragment"].format(entity_list=entity_list))
         if freshness.suggested_time_range:
             range_map = {"past_day": "最新", "past_week": "近期", "past_month": "近一月"}
-            parts.append(f"请提供{range_map.get(freshness.suggested_time_range, '最新')}信息。")
-        parts.append("标注信息来源和时间。")
+            range_desc = range_map.get(freshness.suggested_time_range, "最新")
+            parts.append(hints["time_range_fragment"].format(time_range_desc=range_desc))
+        parts.append(hints["source_tagging"])
         return "\n".join(parts)
 
     @staticmethod
     def _build_mixed_hint(user_input: str, domain_context: str, freshness: FreshnessResult) -> str:
         """生成混合型搜索指引"""
+        hints = SearchArbiter._get_hints("mixed")
         task_parts: List[str] = []
         if domain_context:
-            task_parts.append(f"对于「{domain_context}」相关部分，请联网获取最新数据作为评估依据。")
+            task_parts.append(hints["domain_template"].format(domain_context=domain_context))
         else:
-            task_parts.append("对于专业评估部分，请联网获取相关领域的最新参考信息。")
+            task_parts.append(hints["fallback"])
 
         if freshness.temporal_score > 0.5:
-            task_parts.append("同时注意核实用户提到的时效性信息的当前状态。")
+            task_parts.append(hints["temporal_fragment"])
+        task_parts.append(hints["source_tagging"])
         task_parts.append("网络信息请标注来源。")
         return "\n".join(task_parts)
 

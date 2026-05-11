@@ -12,6 +12,7 @@ if str(_m7_dir) not in sys.path:
     sys.path.insert(0, str(_m7_dir))
 
 from m7_llm_client import make_llm_client
+from prompts.loader import load_prompt_dict
 
 
 def _default_intent_library_path() -> Path:
@@ -131,40 +132,15 @@ def _safe_json_parse(text: str) -> Dict[str, Any]:
 
 
 def _build_intent_prompt(user_input: str, semantic_matches: List[Dict[str, Any]]) -> List[Dict[str, str]]:
-    system_prompt = (
-        "你是创业项目路由系统的意图识别引擎。"
-        "你的任务是将用户非结构化输入解析成严格JSON格式的路由指令。"
-        "必须只输出JSON对象，不允许任何额外文本。"
-        "字段必须包含：primary_intent, sub_intent, urgency, required_experts, missing_info, confidence_score, reasoning_summary。"
-        "reasoning_summary必须简短，聚焦证据，不要长篇思维链。"
-    )
-
-    few_shot = {
-        "input": "这个项目看起来不错，但我担心他们的知识产权有隐患，而且现金流有点紧。",
-        "output": {
-            "primary_intent": "risk_assessment",
-            "sub_intent": "cross_domain_legal_finance",
-            "urgency": "high",
-            "required_experts": ["risk_guardian", "finance_advisor"],
-            "missing_info": ["ip_documents", "cashflow_statement"],
-            "confidence_score": 0.9,
-            "reasoning_summary": "用户同时提及知识产权和现金流，属于跨域高优先风险。",
-        },
-    }
+    intent_cfg = load_prompt_dict("m7/intent_engine.json")
+    system_prompt = intent_cfg["system_prompt"]
+    few_shot = intent_cfg["few_shot"]
 
     user_prompt = {
         "task_input": user_input,
         "semantic_matches": semantic_matches,
         "few_shot_example": few_shot,
-        "output_schema": {
-            "primary_intent": "string",
-            "sub_intent": "string",
-            "urgency": "low|medium|high",
-            "required_experts": ["string"],
-            "missing_info": ["string"],
-            "confidence_score": 0.0,
-            "reasoning_summary": "string",
-        },
+        "output_schema": intent_cfg["user_prompt"]["output_schema"],
     }
 
     return [
