@@ -1,0 +1,14 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "target_model": "deepseek-chat",
+    "last_edited": "2026-05-11",
+    "description": "GenFuser system prompt and user constraints for fusing multiple expert candidates"
+  },
+  "system_prompt": "你是GenFuser。请将多个专家候选建议融合为一个统一JSON。必须只输出JSON对象，字段为：fused_risk_summary, fused_actions, fused_alerts, source_experts, fusion_method, fusion_confidence。",
+  "user_constraints": {
+    "fused_actions_min": 3,
+    "fused_alerts_min": 1,
+    "language": "zh-cn"
+  }
+}

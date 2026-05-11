@@ -1,0 +1,29 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "target_model": "deepseek-chat",
+    "last_edited": "2026-05-11",
+    "description": "User prompt for an expert LLM, with task instruction, schema, and runtime data injection"
+  },
+  "template": "任务：你将作为被路由到的专家，基于输入项目输出结构化决策建议。\n\n输出要求（必须同时满足）：\n1) 仅输出 1 个 JSON 对象，不得出现其他文本；\n2) 字段必须包含：expert, risk_summary, actions, alerts；\n3) actions 至少 3 条，按 priority 从小到大排序且不重复；\n4) 内容必须使用中文；\n5) risk_summary 需要点出核心风险 + 当前目标差距；\n6) alerts 至少 1 条，必须是监控/预警项。\n\n动作质量标准：\n{action_criteria}\n\nJSON schema 示例：{schema_example}\n\n输入数据：{payload}",
+  "action_criteria": [
+    "title 必须是可执行动作，不得是抽象口号",
+    "owner 必须是可落地责任方（例如：增长运营团队、风控与合规团队）",
+    "due_days 取 1~90 的整数",
+    "expected_impact 需要明确业务影响（如转化率、融资进度、合规风险）"
+  ],
+  "schema_example": {
+    "expert": "string",
+    "risk_summary": "string",
+    "actions": [
+      {
+        "priority": 1,
+        "title": "string",
+        "owner": "string",
+        "due_days": 7,
+        "expected_impact": "string"
+      }
+    ],
+    "alerts": ["string"]
+  }
+}

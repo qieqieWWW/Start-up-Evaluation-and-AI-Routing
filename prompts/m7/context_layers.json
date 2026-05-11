@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_edited": "2026-05-11",
+    "description": "L1-L4 context layer render prefix templates with {layer_context} injection"
+  },
+  "layers": {
+    "L1": {
+      "template": "\n\n[上下文窗口-L1 直接输入层]\n以下内容来自用户直接输入及上传片段，必须优先响应其当下问题。禁止改写、禁止省略、禁止二次加工。\n{layer_context}"
+    },
+    "L2": {
+      "template": "\n\n[上下文窗口-L2 会话上下文层]\n以下内容用于保持多轮会话连贯与指代消解，回答时需结合该上下文。\n{layer_context}"
+    },
+    "L3": {
+      "template": "\n\n[上下文窗口-L3 用户历史画像层]\n以下内容来自用户历史记录与偏好检索结果，用于个性化路由与建议。\n{layer_context}"
+    },
+    "L4": {
+      "template": "\n\n[上下文窗口-L4 全局知识库层]\n以下内容是行业标准、风险模型定义和历史成功案例，用于专业基准与Grounding。\n{layer_context}"
+    }
+  }
+}

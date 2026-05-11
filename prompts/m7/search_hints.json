@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_edited": "2026-05-11",
+    "description": "4 types of search hint builders: deep_task, basic_task, factual_chat, mixed"
+  },
+  "hints": {
+    "deep_task": {
+      "domain_fragment": "请主动联网搜索「{domain_context}」领域的最新数据、政策法规和市场动态。",
+      "domain_fallback": "请主动联网查询与用户问题相关的最新行业数据和权威资料。",
+      "entity_fragment": "特别注意核实以下信息的最新状态: {entity_list}",
+      "time_range_fragment": "搜索时重点关注{time_range_desc}的信息。",
+      "source_credibility": "优先引用官方来源、权威媒体或学术研究资料。",
+      "format_requirement": "请在回答中对所有来自网络的信息标注 [来源: xxx]，以便追溯验证。",
+      "conflict_rule": "如果网络信息与通用知识矛盾，以网络最新信息为准并注明差异。"
+    },
+    "basic_task": {
+      "domain_template": "请联网查询「{domain_context}」领域的最新参考数据。",
+      "fallback": "请联网查询与当前评估任务相关的最新参考数据。",
+      "entity_fragment": "如涉及 {entity_list} 等信息请确认其最新状态。",
+      "source_tagging": "对网络获取的信息标注来源。"
+    },
+    "factual_chat": {
+      "opener": "用户的问题涉及到可能随时间变化的事实信息，请联网核实后回答。",
+      "entity_fragment": "需核实的关键信息: {entity_list}",
+      "time_range_fragment": "请提供{time_range_desc}信息。",
+      "source_tagging": "标注信息来源和时间。"
+    },
+    "mixed": {
+      "domain_template": "对于「{domain_context}」相关部分，请联网获取最新数据作为评估依据。",
+      "fallback": "对于专业评估部分，请联网获取相关领域的最新参考信息。",
+      "temporal_fragment": "同时注意核实用户提到的时效性信息的当前状态。",
+      "source_tagging": "网络信息请标注来源。"
+    }
+  }
+}
