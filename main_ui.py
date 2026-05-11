@@ -435,6 +435,19 @@ def run_analysis_pipeline(
         "modules": {},
     }
 
+    # ========== Step 0: 初始化 SharedBlackboard ==========
+    try:
+        from scripts.mas_blackboard.blackboard import SharedBlackboard
+        from scripts.mas_blackboard.models import BlackboardState
+
+        bb_state = BlackboardState(session_id=f"session_{user_id}")
+        shared_bb = SharedBlackboard(bb_state)
+        results["modules"]["M11_路由决策"] = {"status": "Blackboard 已初始化"}
+    except Exception as e:
+        shared_bb = None
+        results["modules"]["M11_路由决策"] = {"error": f"Blackboard 初始化失败: {e}"}
+        # BB 初始化失败不等同于 M11 失败，允许继续
+
     # ========== Step 1: M8 风险规则判定 ==========
     st.session_state.pipeline_step = "M8 风险规则判定"
     try:
@@ -453,29 +466,59 @@ def run_analysis_pipeline(
                 "high_keywords": matched_high,
             },
         }
+
+        # M8 写入 Blackboard
+        if shared_bb is not None:
+            try:
+                shared_bb.write(
+                    zone="m8_risk",
+                    content={
+                        "risk_level": risk_level,
+                        "risk_reasons": risk_reasons,
+                        "intermediate": intermediate,
+                        "text_risk_bonus": text_risk_bonus,
+                    },
+                    tags=["risk", "m8"],
+                    agent_id="m8_rule_engine",
+                )
+            except Exception:
+                pass  # BB 写入失败不阻断流程
     except Exception as e:
         results["modules"]["M8_风险判定"] = {"error": str(e)}
         risk_level = "风险中等"
         risk_reasons = [f"M8执行异常: {str(e)}"]
         intermediate = {}
 
-    # ========== Step 2: M7 专家路由 ==========
-    st.session_state.pipeline_step = "M7 专家路由"
+    # ========== Step 2: M11 小模型路由（替代原 M7 专家路由） ==========
+    st.session_state.pipeline_step = "M11 小模型路由"
+    route_result = {"selected_experts": [], "confidence": 0, "route_reason": "M11 未执行"}
     try:
-        route_experts = _import_m7_router()
-        route_result = route_experts(
+        from scripts.m11.m11_core import M11Router, SmallModelNotConfigured, SmallModelLoadFailed
+
+        m11_router = M11Router(blackboard=shared_bb)
+        route_result = m11_router.route(
+            user_input=user_query,
             risk_level=risk_level,
             intermediate=intermediate,
             project_data=project_data,
             user_id=user_id,
-            user_input=user_query,
         )
-        results["modules"]["M7_专家路由"] = route_result
+        results["modules"]["M11_路由决策"] = route_result
+    except (SmallModelNotConfigured, SmallModelLoadFailed) as e:
+        error_msg = f"⚠️ M11 小模型不可用：{e}。请配置模型后再使用本系统。"
+        st.error(error_msg)
+        results["modules"]["M11_路由决策"] = {"error": error_msg}
+        return results
+    except Exception as e:
+        error_msg = f"M11 路由失败: {e}"
+        st.error(error_msg)
+        results["modules"]["M11_路由决策"] = {"error": error_msg}
+        return results
     except Exception as e:
         results["modules"]["M7_专家路由"] = {"error": str(e)}
         route_result = {"selected_experts": [], "confidence": 0, "route_reason": str(e)}
 
-    # ========== Step 3: M7 LLM推理 + Blender ==========
+    # ========== Step 3: M7 LLM推理 + Blender（数据通过 Blackboard 自动读取） ==========
     st.session_state.pipeline_step = "M7 LLM推理"
     llm_outputs = []
     blender_result = {}
@@ -484,13 +527,9 @@ def run_analysis_pipeline(
             if enable_blender:
                 _, run_with_blender = _import_m7_inference()
                 blender_result = run_with_blender(
-                    risk_level=risk_level,
-                    reasons=risk_reasons,
-                    intermediate=intermediate,
-                    project_data=project_data,
-                    route_result=route_result,
                     user_input=user_query,
                     user_id=user_id,
+                    blackboard=shared_bb,
                     top_k=2,
                     model="deepseek-chat",
                     use_llm_fuser=True,
@@ -499,13 +538,9 @@ def run_analysis_pipeline(
             else:
                 run_inference, _ = _import_m7_inference()
                 llm_outputs = run_inference(
-                    risk_level=risk_level,
-                    reasons=risk_reasons,
-                    intermediate=intermediate,
-                    project_data=project_data,
-                    route_result=route_result,
                     user_input=user_query,
                     user_id=user_id,
+                    blackboard=shared_bb,
                     top_k=2,
                     model="deepseek-chat",
                 )
@@ -676,7 +711,7 @@ def run_analysis_pipeline(
             sm_val = os.environ.get("USE_REAL_SMALL_MODEL", "NOT_SET")
             print(f"[M15-DEBUG] 即将创建 AdaptiveTieredWorkflow, USE_REAL_SMALL_MODEL={sm_val}")
             AdaptiveTieredWorkflow, _ = _import_mas_blackboard()
-            workflow = AdaptiveTieredWorkflow()
+            workflow = AdaptiveTieredWorkflow(blackboard=shared_bb)
             bb_result = workflow.run(user_input=user_query)
             results["modules"]["MAS_黑板架构"] = {
                 "routing_decision": bb_result.decision.model_dump() if hasattr(bb_result.decision, "model_dump") else str(bb_result.decision),
