@@ -161,29 +161,37 @@ def judge_project_risk_m8(project_data: Dict[str, Any], verbose: bool = True) ->
              - reasons: 判定原因列表
              - intermediate: 包含6个核心特征的字典（脚本M3调用必需）
     """
+    # Early exit: if upstream extractor flagged insufficient data, return diagnostic
+    if project_data.get("_insufficient_data"):
+        return ("信息不足", ["无足够有效信息，无法判断"], {})
+
     # 1. 填充默认值，确保兼容脚本传入的所有字段
     project_data = {**DEFAULT_VALUES, **project_data}
     reasons = []
     intermediate = {}  # 核心：必须包含脚本需要的6个特征字段
     is_high_fail = project_data['main_category'] in HIGH_FAIL_CATEGORIES
-    
+
+    # detect which fields were filled by extractor defaults; if present, treat them as 'missing' for independent judgments
+    evidence_obj = project_data.get('evidence') if isinstance(project_data.get('evidence'), dict) else {}
+    filled_fields = evidence_obj.get('filled_from_defaults', []) if isinstance(evidence_obj, dict) else []
+
     # 1.5 文本风险分析（新增：分析user_input中的风险关键词）
     user_input = project_data.get('user_input', '')
     text_risk_bonus, matched_critical, matched_high = analyze_text_risk(user_input)
-    
+
     # 如果有匹配的极高风险关键词，添加到原因列表
     if matched_critical:
         reasons.append(f"【文本风险】检测到极高风险关键词：{', '.join(matched_critical)}")
     if matched_high:
         reasons.append(f"【文本风险】检测到高风险关键词：{', '.join(matched_high[:5])}{'...' if len(matched_high) > 5 else ''}")
-    
+
     # 2. 提取所有必要字段并做合法性校验
     goal_ratio = _validate_numeric(project_data['goal_ratio'], 'goal_ratio')
     time_penalty = _validate_numeric(project_data['time_penalty'], 'time_penalty')
     category_risk = _validate_numeric(project_data['category_risk'], 'category_risk')
     country_factor = _validate_numeric(project_data['country_factor'], 'country_factor')
     urgency_score = _validate_numeric(project_data['urgency_score'], 'urgency_score')
-    
+
     # 3. 加权计算组合风险值
     high_fail_weight = 1.8 if is_high_fail else 0.8
     goal_ratio_weighted = goal_ratio * FEATURE_WEIGHTS['goal_ratio'] * FEATURE_COEFFICIENTS['goal_ratio'] * high_fail_weight
@@ -191,42 +199,66 @@ def judge_project_risk_m8(project_data: Dict[str, Any], verbose: bool = True) ->
     category_risk_weighted = category_risk * FEATURE_WEIGHTS['category_risk'] * FEATURE_COEFFICIENTS['category_risk'] * high_fail_weight
     country_factor_weighted = country_factor * FEATURE_WEIGHTS['country_factor'] * FEATURE_COEFFICIENTS['country_factor'] * high_fail_weight
     urgency_score_weighted = urgency_score * FEATURE_WEIGHTS['urgency_score'] * FEATURE_COEFFICIENTS['urgency_score']
-    
+
+    # 如果 extractor 使用了填充值或回退值（filled_fields），将这些字段排除在组合风险计算之外：
+    # - 对应原始数值置 0（避免进入 raw_sum）
+    # - 对应加权分量置 0（避免进入 weighted_sum）
+    # - 从 total_weight 中剔除其权重以避免归一化时稀释有效特征
+    if isinstance(filled_fields, list) and filled_fields:
+        if 'goal_ratio' in filled_fields:
+            goal_ratio = 0.0
+            goal_ratio_weighted = 0.0
+        if 'time_penalty' in filled_fields:
+            time_penalty = 0.0
+            time_penalty_weighted = 0.0
+        if 'category_risk' in filled_fields:
+            category_risk = 0.0
+            category_risk_weighted = 0.0
+        if 'country_factor' in filled_fields:
+            country_factor = 0.0
+            country_factor_weighted = 0.0
+        if 'urgency_score' in filled_fields:
+            urgency_score = 0.0
+            urgency_score_weighted = 0.0
+
     # 4. 组合风险值计算（重构权重求和逻辑，显式定义基础特征）
     BASE_FEATURES = ['goal_ratio', 'time_penalty', 'category_risk', 'country_factor', 'urgency_score']
-    total_weight = sum(FEATURE_WEIGHTS[feat] for feat in BASE_FEATURES)
-    
+    # 在计算总权重时排除被填充的字段权重
+    effective_features = [f for f in BASE_FEATURES if f not in (filled_fields or [])]
+    total_weight = sum(FEATURE_WEIGHTS[feat] for feat in effective_features) if effective_features else 0.0
+
     weighted_sum = goal_ratio_weighted + time_penalty_weighted + category_risk_weighted + country_factor_weighted + urgency_score_weighted
     normalized_weighted = weighted_sum / total_weight if total_weight > 0 else 0.0
     raw_sum = goal_ratio + time_penalty + category_risk + country_factor + urgency_score
     combined_risk = (normalized_weighted * NORMALIZED_RATIO + raw_sum * RAW_SUM_RATIO) * FEATURE_WEIGHTS['combined_risk']
-    
+
     # 3.5 应用文本风险加成（新增）
     if text_risk_bonus > 0:
         combined_risk += text_risk_bonus
-    
+
     # 5. 最终平衡版校验规则
     core_triggered = 0
-    if goal_ratio > SCENARIO_THRESHOLDS['goal_ratio']:
+    # Only add per-feature reasons if that feature was NOT filled_from_defaults
+    if 'goal_ratio' not in filled_fields and goal_ratio > SCENARIO_THRESHOLDS['goal_ratio']:
         core_triggered += 1
         reasons.append(f"目标倍率过高（{goal_ratio:.2f} > 阈值{SCENARIO_THRESHOLDS['goal_ratio']:.2f}）")
-    if time_penalty > SCENARIO_THRESHOLDS['time_penalty']:
+    if 'time_penalty' not in filled_fields and time_penalty > SCENARIO_THRESHOLDS['time_penalty']:
         core_triggered += 1
         reasons.append(f"周期惩罚过高（{time_penalty:.2f} > 阈值{SCENARIO_THRESHOLDS['time_penalty']:.2f}）")
-    if category_risk > SCENARIO_THRESHOLDS['category_risk']:
+    if 'category_risk' not in filled_fields and category_risk > SCENARIO_THRESHOLDS['category_risk']:
         core_triggered += 1
         reasons.append(f"品类风险过高（{category_risk:.2%} > 阈值{SCENARIO_THRESHOLDS['category_risk']:.2f}）")
-    if country_factor > SCENARIO_THRESHOLDS['country_factor']:
+    if 'country_factor' not in filled_fields and country_factor > SCENARIO_THRESHOLDS['country_factor']:
         reasons.append(f"国家风险过高（{country_factor:.2f} > 阈值{SCENARIO_THRESHOLDS['country_factor']:.2f}）")
-    if urgency_score > SCENARIO_THRESHOLDS['urgency_score']:
+    if 'urgency_score' not in filled_fields and urgency_score > SCENARIO_THRESHOLDS['urgency_score']:
         reasons.append(f"紧迫感风险过高（{urgency_score:.2f} > 阈值{SCENARIO_THRESHOLDS['urgency_score']:.2f}）")
-    
+
     # 6. 边缘样本校验（平衡精确率和召回率）
     if not is_high_fail:
         if (HIGH_RISK_THRESHOLD <= combined_risk < PRECISION_COMPENSATE_THRESHOLD) and core_triggered < 2:
             combined_risk = 4.0
             reasons.append(f"边缘高风险样本，核心特征触发不足（{core_triggered}个），降级为中风险")
-    
+
     # 7. 风险等级判定
     if combined_risk >= 8.0:
         risk_level = '风险很高'
@@ -238,24 +270,25 @@ def judge_project_risk_m8(project_data: Dict[str, Any], verbose: bool = True) ->
         risk_level = '风险较低'
     else:
         risk_level = '风险很低'
-    
+
     # 8. 填充intermediate字典（核心！M3调用必需的6个字段）
-    intermediate['goal_ratio'] = round(goal_ratio, 4)
-    intermediate['time_penalty'] = round(time_penalty, 4)
-    intermediate['category_risk'] = round(category_risk, 4)
+    # For fields filled by extractor, set intermediate value to None to indicate missing independent judgment
+    intermediate['goal_ratio'] = None if 'goal_ratio' in filled_fields else round(goal_ratio, 4)
+    intermediate['time_penalty'] = None if 'time_penalty' in filled_fields else round(time_penalty, 4)
+    intermediate['category_risk'] = None if 'category_risk' in filled_fields else round(category_risk, 4)
     intermediate['combined_risk'] = round(combined_risk, 4)
-    intermediate['country_factor'] = round(country_factor, 4)
-    intermediate['urgency_score'] = round(urgency_score, 4)
-    
+    intermediate['country_factor'] = None if 'country_factor' in filled_fields else round(country_factor, 4)
+    intermediate['urgency_score'] = None if 'urgency_score' in filled_fields else round(urgency_score, 4)
+
     # 9. 整理原因（兼容verbose参数）
     if not reasons:
         reasons.append(f"无高风险因素，组合风险值：{combined_risk:.2f}")
     else:
         reasons.insert(0, f"核心风险等级：{risk_level}（组合风险值：{combined_risk:.2f}）")
-    
+
     if verbose:
         print(f"[M8判定结果] 风险等级：{risk_level} | 组合风险值：{combined_risk:.2f}")
-    
+
     return risk_level, reasons, intermediate
 
 def _calc_confidence(risk_level: str) -> float:
@@ -488,7 +521,6 @@ if __name__ == "__main__":
 
 
 # In[ ]:
-
 
 
 

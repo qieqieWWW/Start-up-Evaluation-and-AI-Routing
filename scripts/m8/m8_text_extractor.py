@@ -35,6 +35,54 @@ CATEGORY_RISK_RATE = {
     'Theater': 0.19440175631174533,
 }
 
+CATEGORY_MEDIAN_GOAL = {
+    'Art': 15843.53,
+    'Comics': 5285.56,
+    'Crafts': 8334.16,
+    'Dance': 9441.57,
+    'Design': 36099.00,
+    'Fashion': 16559.56,
+    'Film & Video': 88093.98,
+    'Food': 33728.61,
+    'Games': 14355.78,
+    'Journalism': 38522.11,
+    'Music': 20640.56,
+    'OTHER': 9307.63,
+    'Photography': 11417.62,
+    'Publishing': 11450.65,
+    'Technology': 59923.42,
+    'Theater': 28564.15,
+}
+
+# 国家风险阈值映射（国家码 -> 风险阈值）
+COUNTRY_RISK_THRESHOLD = {
+    'GB': 0.26301984,
+    'CA': 0.32708079,
+    'US': 0.31987929,
+    'AU': 0.34740590,
+    'IT': 0.48554383,
+    'DE': 0.39474142,
+    'ES': 0.37905605,
+    'AT': 0.43937233,
+    'BE': 0.40803383,
+    'SG': 0.30431177,
+    'JP': 0.17872969,
+    'DK': 0.33019755,
+    'MX': 0.45654206,
+    'IE': 0.33580508,
+    'CH': 0.43656344,
+    'HK': 0.10870507,
+    'FR': 0.33213886,
+    'SE': 0.34295046,
+    'NL': 0.40049140,
+    'NZ': 0.37406217,
+    'NO': 0.40277778,
+    'PL': 0.31313926,
+    'GR': 0.22772277,
+    'SI': 0.47008547,
+    'LU': 0.32038835,
+}
+
 
 def _clip(val: Optional[float], lo: Optional[float], hi: Optional[float]) -> Optional[float]:
     if val is None:
@@ -260,21 +308,85 @@ def extract_via_llm(project_data: Dict[str, Any], llm_client: Optional[Any] = No
     if combined_risk is None and goal_ratio is not None and time_penalty is not None:
         combined_risk = goal_ratio * time_penalty
 
-    # consistency check: if both provided, enforce computed value
-    if goal_ratio is not None and time_penalty is not None and combined_risk is not None:
-        recomputed = goal_ratio * time_penalty
-        if recomputed > 0:
-            diff = abs(recomputed - combined_risk) / recomputed
-            if diff > 0.10:
-                # take recomputed as truth, but record discrepancy
-                parsed_evidence_local = dict(parsed_evidence)
-                parsed_evidence_local["discrepancy"] = {"reported": combined_risk, "recomputed": recomputed}
-                combined_risk = recomputed
-                evidence = {"prompt": prompt, "raw_llm_response": parsed_raw_llm, "method": "llm", **parsed_evidence_local}
+    # --- New: handle partial/missing extracted fields ---
+    core_fields = {
+        "goal_ratio": goal_ratio,
+        "time_penalty": time_penalty,
+        "category_risk": category_risk,
+        "country_factor": country_factor,
+        "urgency_score": urgency_score,
+        "combined_risk": combined_risk,
+    }
+    missing = [k for k, v in core_fields.items() if v is None]
+
+    # If too many missing (>3), mark insufficient and return diagnostic for downstream
+    if len(missing) > 3:
+        # Build explicit Chinese diagnosis for downstream consumers and audit
+        diagnosis_cn = "无足够有效信息，无法判断"
+        raw_ins = {
+            "note": "insufficient_data",
+            "message": diagnosis_cn,
+            "missing_fields": missing,
+            "raw_attempts": raw_attempts if raw_attempts else [raw]
+        }
+        raw = json.dumps(raw_ins, ensure_ascii=False)
+        # Explicitly set core features to None to avoid accidental downstream judgement
+        pd.update({
+            "goal_ratio": None,
+            "time_penalty": None,
+            "category_risk": None,
+            "country_factor": None,
+            "urgency_score": None,
+            "combined_risk": None,
+            "evidence": {"prompt": prompt, "raw_llm_response": raw, "method": "llm", "diagnosis": diagnosis_cn},
+            "confidence": None,
+            "_insufficient_data": True,
+            "diagnosis": diagnosis_cn,
+        })
+        return pd
+
+    # If missing count <=4 and >0, fill with provided defaults
+    if 0 < len(missing) <= 4:
+        # Provided fill values
+        fill_values = {
+            "goal_ratio": 2.93585871,
+            "time_penalty": 2.30945197,
+            "category_risk": 0.31947296,
+            "combined_risk": 7.34934452,
+            "urgency_score": 0.25210143,
+        }
+        filled = []
+        for f in missing:
+            if f == "country_factor":
+                # lookup by country code (ISO 2) from pd; fallback to default country_factor
+                country_code = (pd.get("country") or "").strip().upper()
+                cf = COUNTRY_RISK_THRESHOLD.get(country_code)
+                if cf is None:
+                    # try mapping 'US' from 'United States' style
+                    if isinstance(pd.get("country"), str) and len(pd.get("country")) > 2:
+                        cc = pd.get("country").upper()
+                        cf = COUNTRY_RISK_THRESHOLD.get(cc[:2])
+                country_factor = cf if cf is not None else DEFAULT_VALUES.get("country_factor")
+                country_factor = _clip(country_factor, *DEFAULT_CLIP["country_factor"])
+                core_fields["country_factor"] = country_factor
+                filled.append("country_factor")
             else:
-                evidence = {"prompt": prompt, "raw_llm_response": parsed_raw_llm, "method": "llm"}
-        else:
-            evidence = {"prompt": prompt, "raw_llm_response": parsed_raw_llm, "method": "llm"}
+                core_fields[f] = fill_values.get(f)
+                filled.append(f)
+
+        # update local vars from core_fields
+        goal_ratio = core_fields["goal_ratio"]
+        time_penalty = core_fields["time_penalty"]
+        category_risk = core_fields["category_risk"]
+        country_factor = core_fields["country_factor"]
+        urgency_score = core_fields["urgency_score"]
+        combined_risk = core_fields["combined_risk"]
+
+        # record that we filled defaults
+        parsed_evidence_local = dict(parsed_evidence)
+        parsed_evidence_local["filled_from_defaults"] = filled
+        parsed_raw_llm = parsed_raw_llm if parsed_raw_llm else json.dumps({"attempts": raw_attempts}, ensure_ascii=False)
+        evidence = {"prompt": prompt, "raw_llm_response": parsed_raw_llm, "method": "llm", **parsed_evidence_local}
     else:
         evidence = {"prompt": prompt, "raw_llm_response": parsed_raw_llm, "method": "llm"}
 
